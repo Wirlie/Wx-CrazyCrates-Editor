@@ -1,4 +1,4 @@
-import { faExclamationCircle, faInfo, faPlus, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, faPlus, faSave, faSearch, faTag, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { constant_enchantments, Enchantment } from '../resources/app/Constants'
@@ -287,14 +287,14 @@ function PrizeEditor(props: Props) {
                 </ul>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 1 ? " d-none" : "")}>
                     <div className="mb-4">
-                        <label htmlFor="input-display-name" className="form-label">Nombre a Mostrar:</label>
+                        <label htmlFor="input-display-name" className="form-label font-weight-bold"><FontAwesomeIcon icon={faTag} /> Nombre a Mostrar:</label>
                         <input placeholder={materialName} value={displayName} onChange={(e) => handleDisplayName(e.target.value)} type="text" id="input-display-name" className="form-control" aria-describedby="displayNameHelpBlock" />
                         <div id="displayNameHelpBlock" className="form-text">
                             Ingresa el nombre a mostrar en el título del mensaje flotante que verá el jugador al pasar el cursor sobre este premio.
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-material" className="form-label">Material a Mostrar:</label>
+                        <label htmlFor="input-display-material" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBookOpen} /> Material a Mostrar:</label>
                         <div className="d-flex flex-workarount">
                             <span className={"icon-minecraft mr-3 " + displayMaterial?.css} />
                             <ItemSelect 
@@ -307,7 +307,7 @@ function PrizeEditor(props: Props) {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-amount" className="form-label">Cantidad a Mostrar:</label>
+                        <label htmlFor="input-display-amount" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBox} /> Cantidad a Mostrar:</label>
                         <input onChange={(e) => handleDisplayAmount(e.target.value)} value={displayAmount} type="number" id="input-display-amount" className="form-control" aria-describedby="displayAmountHelpBlock" min={1} max={64} />
                         <div id="displayAmountHelpBlock" className="form-text">
                             Ajusta la cantidad del Stack que se mostrará en el Menú de premios de esta caja para este premio.
@@ -315,14 +315,14 @@ function PrizeEditor(props: Props) {
                     </div>
                     <div className="mb-4 row g-0">
                         <div className="col-6">
-                            <label htmlFor="input-display-lore" className="form-label">Descripción del Premio:</label>
+                            <label htmlFor="input-display-lore" className="form-label font-weight-bold"><FontAwesomeIcon icon={faPen} /> Descripción del Premio:</label>
                             <textarea onChange={(e) => handleLore(e.target.value)} id="input-display-lore" className="form-control" aria-describedby="displayLoreHelpBlock" value={displayLore.join("\n")} placeholder="Ingresa una descripción (opcional)..." />
                             <div id="displayLoreHelpBlock" className="form-text">
                                 Esta descripción se mostrará en el Menú de premios de esta caja para este premio, cada línea equivale a una línea en el mensaje flotante de Minecraft.
                             </div>
                         </div>
                         <div className="col-5 offset-1">
-                            <div>Previsualización:</div>
+                            <div className="font-weight-bold"><FontAwesomeIcon icon={faSearch} /> Previsualización:</div>
                             <ItemTooltip>
                                 <ItemTooltipFormat title={displayName.length === 0 ? materialName : displayName}>
                                     { displayLore.length > 1 || (displayLore.length === 1 && displayLore[0].length !== 0)
@@ -341,21 +341,21 @@ function PrizeEditor(props: Props) {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-range" className="form-label">Rango:</label>
+                        <label htmlFor="input-range" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Rango:</label>
                         <input onChange={(e) => handleRange(e.target.value)} value={maxRange} type="number" id="input-range" className="form-control" aria-describedby="rangeHelpBlock" min={1} />
                         <div id="rangeHelpBlock" className="form-text">
                             Rango del cálculo del % de chance, se recomienda dejar en 100 a menos que conozcas como funciona este cálculo.
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-chance" className="form-label">Chance:</label>
+                        <label htmlFor="input-chance" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Chance:</label>
                         <input onChange={(e) => handleChance(e.target.value)} value={chance} type="number" id="input-chance" className="form-control" aria-describedby="chanceHelpBlock" min={1} />
                         <div id="chanceHelpBlock" className="form-text">
                             Define la chance de este objeto, ten en cuenta que el cálculo se hace en base a la chance total de todos los premios.
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-firework" className="form-label">Efecto de Cohete:</label>
+                        <label htmlFor="input-firework" className="form- font-weight-bold"><FontAwesomeIcon icon={faCog} /> Efecto de Cohete:</label>
                         <select defaultValue={firework ? "true" : "false"} className="form-control" id="input-firework" aria-describedby="fireworkHelpBlock" onChange={(e) => handleFireworkSelectChange(e.target.value)}>
                             <option value="true">SI</option>
                             <option value="false">NO</option>
@@ -365,7 +365,7 @@ function PrizeEditor(props: Props) {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-glowing" className="form-label">Efecto de Brillo:</label>
+                        <label htmlFor="input-glowing" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Efecto de Brillo:</label>
                         <select defaultValue={glowing ? "true" : "false"} className="form-control" id="input-glowing" aria-describedby="glowingHelpBlock" onChange={(e) => handleGlowingSelectChange(e.target.value)}>
                             <option value="true">SI</option>
                             <option value="false">NO</option>
