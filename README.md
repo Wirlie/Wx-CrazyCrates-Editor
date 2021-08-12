@@ -22,5 +22,5 @@ I know that electron-builder can be configured to work with Linux and macOS, you
 ## Suggestions/Bug reports
 For suggestions or bug reports, feel free to make a new issue. Also Pull Requests are welcome.
 
-##License
+## License
 Please read the LICENSE file for more information about the license of this application.
