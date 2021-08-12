@@ -2,7 +2,7 @@ import { faBook, faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { constant_enchantments, Enchantment } from '../resources/app/Constants'
-import { GetMaterialName } from '../resources/app/Language'
+import { GetEnchantmentName, GetMaterialName } from '../resources/app/Language'
 import { PrizeData } from '../resources/app/PrizeData'
 import { PrizeItem, PrizeItemToString, StringToPrizeItem } from '../resources/app/PrizeItem'
 import { GetItemByName, TranslatedMinecraftItem, TranslatedItems } from '../util/MinecraftItem'
@@ -12,6 +12,7 @@ import ItemTooltip from './ItemTooltip'
 import ItemTooltipFormat from './ItemTooltipFormat'
 import Switch from "react-switch"
 import PrizeItemEditor from './PrizeItemEditor'
+import { sortStringArray } from '../resources/app/Util'
 
 interface Props {
     data?: {
@@ -251,6 +252,12 @@ function PrizeEditor(props: Props) {
         setPrizeItems([...newArray])
     }
 
+    let allEnchantments : Enchantment[] = []
+    for(let enchant of constant_enchantments) {
+        allEnchantments.push(enchant)
+    }
+    let sortedEnchantmentsByName = allEnchantments.sort((a,b) => GetEnchantmentName(a as Enchantment).localeCompare(GetEnchantmentName(b as Enchantment)))
+
     return (
         <div className={"fmodal-background "}>
             <div className="container mt-2 mb-5 bg-body p-4 border border-dark rounded">
@@ -393,9 +400,9 @@ function PrizeEditor(props: Props) {
                                         <input type="number" step={1} min={1} value={enchantmentInfo.level} className="form-control" onChange={(e) => handleEnchantmentLevelChange(index, parseInt(e.target.value))} />
                                     </div>
                                     <select className="form-control" value={enchantmentInfo.enchantment} onChange={(e) => handleEnchantmentTypeChange(index, e.target.value)}>
-                                        {constant_enchantments.map(constant => {
+                                        {sortedEnchantmentsByName.map(constant => {
                                             return (
-                                                <option value={constant}>{constant.toUpperCase()}</option>
+                                                <option value={constant}>{GetEnchantmentName(constant)}</option>
                                             )
                                         })}
                                     </select>
