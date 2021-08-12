@@ -7,6 +7,10 @@ Currently the editor only supports MC 1.13+ versions and the latest CrazyCrates 
 - **Supported CrazyCrates Version:** v1.10.1 (may work with older versions than this)
 - **Supported languages:** Spanish (English coming soon...)
 
+## Download
+Get the latest release from:
+https://github.com/Wirlie/Wx-CrazyCrates-Editor/releases/
+
 ## How to build and install (Windows)
 This project was build using NodeJS  16.3.0, but may work with other versions.
 
