@@ -7,6 +7,7 @@ export interface PrizeData {
     MaxRange?: number,
     Chance?: number,
     Firework?: boolean,
+    Glowing?: boolean,
     Commands?: string[],
     Messages?: string[],
     OriginalLore?: string[], //Usado para preservar el lore original (en caso de que se use un ajuste especial)

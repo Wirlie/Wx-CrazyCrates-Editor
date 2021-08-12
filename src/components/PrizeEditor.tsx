@@ -49,6 +49,7 @@ function PrizeEditor(props: Props) {
     let [maxRange, setMaxRange] = React.useState<number>(props.data?.prize.MaxRange ?? 100)
     let [chance, setMaxChance] = React.useState<number>(props.data?.prize.Chance ?? 30)
     let [firework, setFirework] = React.useState<boolean>(props.data?.prize.Firework ?? false)
+    let [glowing, setGlowing] = React.useState<boolean>(props.data?.prize.Glowing ?? false)
     let [commands, setCommands] = React.useState<string[]>(props.data?.prize.Commands ?? [])
     let [messages, setMessages] = React.useState<string[]>(props.data?.prize.Messages ?? [])
     let [enchantments, setEnchantments] = React.useState<EnchantmentAndLevel[]>(props.data?.prize.DisplayEnchantments?.flatMap(
@@ -116,6 +117,12 @@ function PrizeEditor(props: Props) {
 
     let handleFireworkSelectChange = (newValue : string) => {
         setFirework(newValue === "true")
+        setHasUnsavedChanges(true)
+    }
+
+    let handleGlowingSelectChange = (newValue : string) => {
+        setGlowing(newValue === "true")
+        setHasUnsavedChanges(true)
     }
 
     let handleSave = () => {
@@ -127,6 +134,7 @@ function PrizeEditor(props: Props) {
             MaxRange: maxRange,
             Chance: chance,
             Firework: firework,
+            Glowing: glowing,
             Commands: commands,
             Messages: messages,
             DisplayEnchantments: enchantments.flatMap((el) => el.enchantment.toUpperCase() + ":" + el.level),
@@ -348,12 +356,22 @@ function PrizeEditor(props: Props) {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="input-firework" className="form-label">Efecto de Cohete:</label>
-                        <select defaultValue={firework ? "true" : "false"} className="form-control" id="input-display-material" aria-describedby="displayItemHelpBlock" onChange={(e) => handleFireworkSelectChange(e.target.value)}>
+                        <select defaultValue={firework ? "true" : "false"} className="form-control" id="input-firework" aria-describedby="fireworkHelpBlock" onChange={(e) => handleFireworkSelectChange(e.target.value)}>
                             <option value="true">SI</option>
                             <option value="false">NO</option>
                         </select>
-                        <div id="chanceHelpBlock" className="form-text">
+                        <div id="fireworkHelpBlock" className="form-text">
                             Habilitar este efecto hará que explote un Cohete en la ubicación de la caja cuando este premio le toque a un jugador.
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="input-glowing" className="form-label">Efecto de Brillo:</label>
+                        <select defaultValue={glowing ? "true" : "false"} className="form-control" id="input-glowing" aria-describedby="glowingHelpBlock" onChange={(e) => handleGlowingSelectChange(e.target.value)}>
+                            <option value="true">SI</option>
+                            <option value="false">NO</option>
+                        </select>
+                        <div id="glowingHelpBlock" className="form-text">
+                            Habilitar este efecto hará que el ítem brille con el efecto de encantamiento (el mismo que obtienes cuando encantas un ítem desde la mesa de encantamientos).
                         </div>
                     </div>
                 </div>
