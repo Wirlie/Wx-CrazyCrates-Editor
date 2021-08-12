@@ -1,0 +1,137 @@
+.chest-inventory {
+    border: 2px solid;
+    border-color: #DBDBDB #5B5B5B #5B5B5B #DBDBDB;
+    padding: 20px;
+    background-color: #C6C6C6;
+    display: inline-block;
+    line-height: 0px;
+    border-radius: 10px;
+
+    .inventory-row {
+
+        .inventory-slot {
+            background-color: #8B8B8B;
+            width: 40px;
+            height: 40px;
+            max-width: 40px;
+            max-height: 40px;
+            display: inline-block;
+            border: 2px solid;
+            border-color: #373737 #FFF #FFF #373737;
+
+            &:hover {
+                background-color: #bbbbbb;
+            }
+
+            &.selected {
+                background-color: #d69f9f;
+                border: 2px solid;
+                border-color: #9e0000 #ff6161 #ff6161 #9e0000;
+            }
+
+            .counter {
+                font-family: "Minecraft";
+                position: relative;
+                font-size: 20px !important;
+                text-shadow: 
+                3px 3px 0 rgba(0, 0, 0, 0.459),
+                -1px -1px 0 rgba(0, 0, 0, 0.459),  
+                1px -1px 0 rgba(0, 0, 0, 0.459),
+                -1px 1px 0 rgba(0, 0, 0, 0.459),
+                1px 1px 0 rgba(0, 0, 0, 0.459);
+                background-color: transparent !important;
+                width: 0px;
+                height: 0px;
+                text-align: right;
+                -webkit-text-stroke: 0.1px black;
+
+                &.one-digit {
+                    left: 24px;
+                    top: 30px;
+                }
+
+                &.two-digit {
+                    left: 13px;
+                    top: 30px;
+                }
+            }
+        }
+        
+    }
+
+    .inventory-button {
+        width: 40px;
+        height: 40px;
+
+        .svg-inline--fa {
+            margin: 0 !important;
+        }
+
+        &.disabled {
+            opacity: 0.5;
+            background-color: rgba(0,0,0,0.3) !important;
+            border: none !important;
+            cursor: no-drop;
+        }
+
+        &.new-button {
+            background-color: #00d824;
+            color: white;
+            transition: background-color 0.1s, border-color 0.1s;
+            cursor: pointer;
+
+            border: 3px solid;
+            border-color: #65fc7e #009c1a #009c1a #65fc7e;
+
+            &:hover:not([class^="disabled"]) {
+                background-color: #00e626;
+                border-color: #7aff90 #00a51b #00a51b #7aff90;
+            }
+
+            &:active:not([class^="disabled"]) {
+                background-color: rgb(2, 192, 33);
+                border-color: #72f087 #009b1a #009b1a #72f087;
+            }
+        }
+
+        &.edit-button {
+            background-color: #008ae6;
+            color: white;
+            transition: background-color 0.1s, border-color 0.1s;
+            cursor: pointer;
+
+            border: 3px solid;
+            border-color: #71c2f8 #006ab1 #006ab1 #71c2f8;
+
+            &:hover:not([class^="disabled"]) {
+                background-color: #0091f1;
+                border-color: #8ccffc #0678c4 #0678c4 #8ccffc;
+            }
+
+            &:active:not([class^="disabled"]) {
+                background-color: #007bce;
+                border-color: #5fade0 #0065a8 #0065a8 #5fade0;
+            }
+        }
+
+        &.delete-button {
+            background-color: #e6004d;
+            color: white;
+            transition: background-color 0.1s, border-color 0.1s;
+            cursor: pointer;
+
+            border: 3px solid;
+            border-color: #fc5089 #af003a #af003a #fc5089;
+
+            &:hover:not([class^="disabled"]) {
+                background-color: #ec2869;
+                border-color: #fc6b9b #ca0849 #ca0849 #fc6b9b;
+            }
+
+            &:active:not([class^="disabled"]) {
+                background-color: #db0049;
+                border-color: #f33977 #9e0236 #9e0236 #f33977;
+            }
+        }
+    }
+}

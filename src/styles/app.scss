@@ -1,0 +1,93 @@
+.title-bar {
+    background-color: rgb(37, 36, 36);
+    font-size: 14px;  
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-app-region: drag;
+    width: 100%;
+    top: 0px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+
+    .text {
+        padding: 10px 15px;
+    }
+
+    .btn {
+        -webkit-app-region: no-drag;
+
+        &.btn-close {
+            background-color: rgba(0,0,0,0.15);
+
+            &:hover {
+                background-color: rgb(209, 0, 0);
+            }
+        }
+    }
+}
+
+.react-dropdown-select-dropdown {
+    background-color: #3a434d !important;
+    border: 3px solid #676869 !important;
+    width: 100%;
+}
+
+.react-dropdown-select-input {
+    color: white !important;
+    font: "Roboto" !important;
+    font-size: 16px !important;
+}
+
+.react-dropdown-select {
+    border: 1px solid #292e33 !important;
+    background-color: #343a40;
+}
+
+.flex-workarount > div {
+    flex-grow: 1;
+}
+
+.thumb-horizontal, 
+.thumb-vertical {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.35);
+    }
+}
+
+.app-container {
+    max-height: 100%;
+}
+
+.app-right-container {
+    max-height: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.textarea-no-wrap {
+    white-space: nowrap;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.minecraft-chat-preview{
+    font-family: "Minecraft";
+    padding: 15px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.no-break {
+    white-space: nowrap;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

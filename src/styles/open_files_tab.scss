@@ -1,0 +1,17 @@
+.open-files-tab {
+    background-color: rgb(65, 64, 64);
+    font-size: 15px;
+    min-height: 41px;
+    overflow-x: hidden;
+
+    .open-file-tab {
+        background-color: rgb(53, 52, 52);
+        padding: 8px 13px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover {
+            background-color: rgb(58, 57, 57);
+        }
+    }
+}

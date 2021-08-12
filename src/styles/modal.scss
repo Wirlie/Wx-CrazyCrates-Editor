@@ -1,0 +1,31 @@
+.fmodal-background {
+    background-color: rgba(41, 41, 41, 0.95);
+    z-index: 50000;
+    position: fixed;
+    top: 38px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    .fmodal-container {
+        width: 600px;
+        max-width: 80%;
+
+        .fmodal-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    }
+
+    .fmodal-container-full {
+        width: 90%;
+        height: 100%;
+        max-width: 90%;
+        max-height: 100%;
+    }
+}
+
+.bg-body {
+    background-color: #3c434a;
+}
