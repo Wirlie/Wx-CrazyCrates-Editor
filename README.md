@@ -18,3 +18,9 @@ This project was build using NodeJS  16.3.0, but may work with other versions.
 
 ## For Linux and macOS users
 I know that electron-builder can be configured to work with Linux and macOS, you must edit this repository with the appropriate modifications and run the steps described in the above section. For now, I only provide instruction for windows users because that is the OS that I use, but if you want to provide instructions for Linux/macOS users, please make a pull request.
+
+## Suggestions/Bug reports
+For suggestions or bug reports, feel free to make a new issue. Also Pull Requests are welcome.
+
+##License
+Please read the LICENSE file for more information about the license of this application.
