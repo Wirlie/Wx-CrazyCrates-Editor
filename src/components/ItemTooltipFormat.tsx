@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react'
 import BukkitColors from './BukkitColors'
 
 interface Props {
-    title: string
+    title: string,
+    debug? : boolean
 }
 
 interface State {
@@ -20,7 +21,7 @@ export class ItemTooltipFormat extends React.Component<Props, State> {
 
     render(): ReactNode {
         return (
-            <BukkitColors>
+            <BukkitColors debug={this.props.debug}>
                 <div className="tooltip-title">{this.props.title}</div>
                 {this.props.children}
             </BukkitColors>

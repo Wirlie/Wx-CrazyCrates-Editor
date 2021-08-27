@@ -1,5 +1,5 @@
 import Select, { SelectItemRenderer } from 'react-dropdown-select'
-import { GetMaterialName, LanguageEntries } from '../resources/app/Language';
+import { GetMaterialName } from '../resources/app/Language';
 import { TranslatedItems, TranslatedMinecraftItem } from '../util/MinecraftItem'
 
 interface Props {

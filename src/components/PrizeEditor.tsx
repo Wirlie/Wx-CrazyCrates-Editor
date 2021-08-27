@@ -13,6 +13,7 @@ import ItemTooltipFormat from './ItemTooltipFormat'
 import Switch from "react-switch"
 import PrizeItemEditor from './PrizeItemEditor'
 import { sortStringArray } from '../resources/app/Util'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     data?: {
@@ -30,6 +31,8 @@ interface EnchantmentAndLevel {
 }
 
 function PrizeEditor(props: Props) {
+
+    let {t} = useTranslation()
 
     let [currentTab, setCurrentTab] = React.useState<number>(1)
     let [hasUnsavedChanged, setHasUnsavedChanges] = React.useState<boolean>(false)
@@ -209,7 +212,7 @@ function PrizeEditor(props: Props) {
     }
 
     let material = GetItemByName(displayItem as any)
-    let materialName = (material === undefined ? "Material Desconocido" : (GetMaterialName(material.name) ?? material.label))
+    let materialName = (material === undefined ? t("unknown_material") : (GetMaterialName(material.name) ?? material.label))
 
     let handleAddPrizeItem = () => {
         setHasUnsavedChanges(true)
@@ -265,43 +268,43 @@ function PrizeEditor(props: Props) {
                     {
                         props.data !== undefined
                         ?
-                            <h5>Editando Premio "{props.data!!.key}"</h5>
-                        :   <h5>Creando nuevo Premio</h5>
+                            <h5>{t("edit_prize_modal_title")} "{props.data!!.key}"</h5>
+                        :   <h5>{t("create_prize_modal_title")}</h5>
                     }
                     <div>
                         <span className={"btn btn-primary mr-2" + (hasUnsavedChanged ? "" : " disabled")} onClick={() => handleSave()}>
-                            <FontAwesomeIcon icon={props.data !== undefined ? faSave : faPlus} /> {props.data !== undefined ? "Guardar" : "Crear"}
+                            <FontAwesomeIcon icon={props.data !== undefined ? faSave : faPlus} /> {props.data !== undefined ? t("save_button") : t("create_button")}
                         </span>
-                        <span className="btn btn-danger" onClick={() => props.cancellCallback()}><FontAwesomeIcon icon={faTimes} /> Cancelar</span>
+                        <span className="btn btn-danger" onClick={() => props.cancellCallback()}><FontAwesomeIcon icon={faTimes} /> {t("cancel_button")}</span>
                     </div>
                 </div>
                 <ul className="nav nav-tabs mt-4">
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(1)} className={"nav-link" + (currentTab === 1 ? " active" : "")} aria-current="page"><span className="icon-minecraft icon-minecraft-item-frame mr-1" /> General</span>
+                        <span onClick={() => setCurrentTab(1)} className={"nav-link" + (currentTab === 1 ? " active" : "")} aria-current="page"><span className="icon-minecraft icon-minecraft-item-frame mr-1" /> {t("general_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(2)} className={"nav-link" + (currentTab === 2 ? " active" : "")}><span className="icon-minecraft icon-minecraft-enchanted-book mr-1" /> Encantamientos</span>
+                        <span onClick={() => setCurrentTab(2)} className={"nav-link" + (currentTab === 2 ? " active" : "")}><span className="icon-minecraft icon-minecraft-enchanted-book mr-1" /> {t("enchantments_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(3)} className={"nav-link" + (currentTab === 3 ? " active" : "")}><span className="icon-minecraft icon-minecraft-command-block mr-1" /> Comandos</span>
+                        <span onClick={() => setCurrentTab(3)} className={"nav-link" + (currentTab === 3 ? " active" : "")}><span className="icon-minecraft icon-minecraft-command-block mr-1" /> {t("commands_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(4)} className={"nav-link" + (currentTab === 4 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chain-command-block mr-1" /> Mensajes</span>
+                        <span onClick={() => setCurrentTab(4)} className={"nav-link" + (currentTab === 4 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chain-command-block mr-1" /> {t("messages_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(5)} className={"nav-link" + (currentTab === 5 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chest mr-1" /> Objetos</span>
+                        <span onClick={() => setCurrentTab(5)} className={"nav-link" + (currentTab === 5 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chest mr-1" /> {t("items_tab")}</span>
                     </li>
                 </ul>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 1 ? " d-none" : "")}>
                     <div className="mb-4">
-                        <label htmlFor="input-display-name" className="form-label font-weight-bold"><FontAwesomeIcon icon={faTag} /> Nombre a Mostrar:</label>
+                        <label htmlFor="input-display-name" className="form-label font-weight-bold"><FontAwesomeIcon icon={faTag} /> {t("edit_prize_name_to_display")}</label>
                         <input placeholder={materialName} value={displayName} onChange={(e) => handleDisplayName(e.target.value)} type="text" id="input-display-name" className="form-control" aria-describedby="displayNameHelpBlock" />
                         <div id="displayNameHelpBlock" className="form-text">
-                            Ingresa el nombre a mostrar en el título del mensaje flotante que verá el jugador al pasar el cursor sobre este premio.
+                            {t("edit_prize_name_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-material" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBookOpen} /> Material a Mostrar:</label>
+                        <label htmlFor="input-display-material" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBookOpen} /> {t("edit_prize_material_to_display")}</label>
                         <div className="d-flex flex-workarount">
                             <span className={"icon-minecraft mr-3 " + displayMaterial?.css} />
                             <ItemSelect 
@@ -310,14 +313,14 @@ function PrizeEditor(props: Props) {
                             />
                         </div>
                         <div id="displayItemHelpBlock" className="form-text">
-                            Selecciona el material que se mostrará como icono en el Menú de premios de esta caja para este premio.
+                            {t("edit_prize_material_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-amount" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBox} /> Cantidad a Mostrar:</label>
+                        <label htmlFor="input-display-amount" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBox} /> {t("edit_prize_amount_to_display")}</label>
                         <input onChange={(e) => handleDisplayAmount(e.target.value)} value={displayAmount} type="number" id="input-display-amount" className="form-control" aria-describedby="displayAmountHelpBlock" min={1} max={64} />
                         <div id="displayAmountHelpBlock" className="form-text">
-                            Ajusta la cantidad del Stack que se mostrará en el Menú de premios de esta caja para este premio.
+                            {t("edit_prize_amount_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4 row g-0">

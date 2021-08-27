@@ -91,7 +91,7 @@ function AppendExtraData(materialId: string, label: string, apply: boolean) : st
 export function GetEnchantmentName(enchantment : Enchantment) : string {
     switch (enchantment) {
         case "bane_of_arthropods":
-            return "Maldición de los Artrópodos"
+            return "Perdición de los Artrópodos"
         case "binding_curse":
             return "Maldición de ligamiento"
         case "aqua_affinity":
@@ -99,7 +99,7 @@ export function GetEnchantmentName(enchantment : Enchantment) : string {
         case "blast_protection":
             return "Protección contra explosiones"
         case "channeling":
-            return "Canalización"
+            return "Conductividad"
         case "depth_strider":
             return "Agilidad acuática"
         case "efficiency":
@@ -160,6 +160,14 @@ export function GetEnchantmentName(enchantment : Enchantment) : string {
             return "Desconocido"
         case "vanishing_curse":
             return "Maldición de desaparición"
+        case "multishot":
+            return "Multidisparo"
+        case "quick_charge":
+            return "Carga rápida"
+        case "piercing":
+            return "Perforación"
+        case "soul_speed":
+            return "Velocidad de alma"
     }
 
     return (enchantment as string).toUpperCase()

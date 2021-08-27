@@ -4,8 +4,9 @@ import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { TranslatedMinecraftItem } from '../util/MinecraftItem'
 import ItemTooltipFormat from './ItemTooltipFormat'
+import { withTranslation, TFunction } from "react-i18next";
 
-interface Props {
+interface Props  {
     rows: number,
     data: SlotData[],
     selectedSlot: SlotData|undefined,
@@ -13,7 +14,8 @@ interface Props {
     onRewardRemove: (rawIndex: number, data: SlotData) => void,
     onClearAllRewards: () => void,
     onSelectSlot: (data: SlotData | undefined) => void,
-    onAddItem: () => void
+    onAddItem: () => void,
+    t?: TFunction
 }
 
 interface State {
@@ -28,6 +30,8 @@ class ChestInventory extends React.Component<Props, State> {
     }
 
     render() {
+        const { t } = this.props
+        
         const {
             rows,
             data,
@@ -119,10 +123,10 @@ class ChestInventory extends React.Component<Props, State> {
                             mouseLeaveDelay={0}
                             mouseEnterDelay={0}
                             overlay={
-                                <ItemTooltipFormat title="&aAgregar Recompensa">
-                                    &fDa clic para crear una nueva<br/>
-                                    &frecompensa y agregarla al<br/>
-                                    &fcontenido de la caja.
+                                <ItemTooltipFormat title={t!!("add_reward_tooltip_title")}>
+                                    {t!!("add_reward_tooltip_lore_0")}<br/>
+                                    {t!!("add_reward_tooltip_lore_1")}<br/>
+                                    {t!!("add_reward_tooltip_lore_2")}
                                 </ItemTooltipFormat>
                             }
                         >
@@ -137,18 +141,18 @@ class ChestInventory extends React.Component<Props, State> {
                             overlay={
                                 selectedSlot === undefined
                                 ?
-                                <ItemTooltipFormat title="&eEditar Recompensa">
-                                    &cSelecciona una recompensa<br/>
-                                    &cpara poder editar.<br/>
+                                <ItemTooltipFormat title={t!!("edit_reward_tooltip_title")}>
+                                    {t!!("edit_reward_disabled_tooltip_lore_0")}<br/>
+                                    {t!!("edit_reward_disabled_tooltip_lore_1")}<br/>
                                     <br/>
-                                    &ePara seleccionar una recompensa<br/>
-                                    &eda clic izquierdo en el slot de<br/>
-                                    &ela recompensa a editar.
+                                    {t!!("edit_reward_disabled_tooltip_lore_2")}<br/>
+                                    {t!!("edit_reward_disabled_tooltip_lore_3")}<br/>
+                                    {t!!("edit_reward_disabled_tooltip_lore_4")}
                                 </ItemTooltipFormat>
                                 :
-                                <ItemTooltipFormat title="&eEditar Recompensa">
-                                    &eDa clic para editar la recompensa<br/>
-                                    &eseleccionada.
+                                <ItemTooltipFormat title={t!!("edit_reward_tooltip_title")}>
+                                    {t!!("edit_reward_enabled_tooltip_lore_0")}<br/>
+                                    {t!!("edit_reward_enabled_tooltip_lore_1")}
                                 </ItemTooltipFormat>
                             } 
                         >
@@ -163,18 +167,18 @@ class ChestInventory extends React.Component<Props, State> {
                             overlay={
                                 selectedSlot === undefined
                                 ?
-                                <ItemTooltipFormat title="&dEliminar Recompensa">
-                                    &cSelecciona una recompensa<br/>
-                                    &cpara poder eliminar.<br/>
+                                <ItemTooltipFormat title={t!!("delete_reward_tooltip_title")}>
+                                    {t!!("delete_reward_disabled_tooltip_lore_0")}<br/>
+                                    {t!!("delete_reward_disabled_tooltip_lore_1")}<br/>
                                     <br/>
-                                    &ePara seleccionar una recompensa<br/>
-                                    &eda clic izquierdo en el slot de<br/>
-                                    &ela recompensa a eliminar.
+                                    {t!!("delete_reward_disabled_tooltip_lore_2")}<br/>
+                                    {t!!("delete_reward_disabled_tooltip_lore_3")}<br/>
+                                    {t!!("delete_reward_disabled_tooltip_lore_4")}
                                 </ItemTooltipFormat>
                                 :
-                                <ItemTooltipFormat title="&dEliminar Recompensa">
-                                    &eDa clic para eliminar la recompensa<br/>
-                                    &eseleccionada.
+                                <ItemTooltipFormat title={t!!("delete_reward_tooltip_title")}>
+                                    {t!!("delete_reward_enabled_tooltip_lore_0")}<br/>
+                                    {t!!("delete_reward_enabled_tooltip_lore_1")}
                                 </ItemTooltipFormat>
                             } 
                         >
@@ -187,8 +191,9 @@ class ChestInventory extends React.Component<Props, State> {
                             mouseLeaveDelay={0}
                             mouseEnterDelay={0}
                             overlay={
-                                <ItemTooltipFormat title="&dEliminar Recompensa">
-                                    &c&lBorrar el contenido de TODA la caja.
+                                <ItemTooltipFormat title={t!!("delete_all_reward_tooltip_title")}>
+                                    {t!!("delete_all_reward_tooltip_lore_0")}<br/>
+                                    {t!!("delete_all_reward_tooltip_lore_1")}
                                 </ItemTooltipFormat>
                             } 
                         >
@@ -201,7 +206,7 @@ class ChestInventory extends React.Component<Props, State> {
     }
 }
 
-export default ChestInventory
+export default withTranslation()(ChestInventory)
 
 export interface SlotData {
     rawIndex: number,
