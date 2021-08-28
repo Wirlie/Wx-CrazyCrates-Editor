@@ -153,5 +153,12 @@
     "enchantment_multishot": "Multidisparo",
     "enchantment_quick_charge": "Carga rápida",
     "enchantment_piercing": "Perforación",
-    "enchantment_soul_speed": "Velocidad de alma"
+    "enchantment_soul_speed": "Velocidad de alma",
+    "itemflag_HIDE_ATTRIBUTES": "Ocultar atributos del ítem (daño)",
+    "itemflag_HIDE_DESTROYS": "Ocultar qué cosas puede destruir el ítem",
+    "itemflag_HIDE_DYE": "Ocultar coloración del ítem (cuero)",
+    "itemflag_HIDE_ENCHANTS": "Ocultar encantamientos",
+    "itemflag_HIDE_PLACED_ON": "Ocultar en donde se puede ocultar el ítem",
+    "itemflag_HIDE_POTION_EFFECTS": "Ocultar efectos de pociones",
+    "itemflag_HIDE_UNBREAKABLE": "Ocultar si el ítem es irrompible o no"
 }

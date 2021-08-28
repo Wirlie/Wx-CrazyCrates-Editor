@@ -121,20 +121,5 @@ export function GetEnchantmentLevelAsRoman(level : number) : string {
 }
 
 export function GetItemFlagName(flag : ItemFlag) : string {
-    switch(flag) {
-        case "HIDE_ATTRIBUTES":
-            return "Ocultar atributos del ítem (daño)"
-        case "HIDE_DESTROYS":
-            return "Ocultar qué cosas puede destruir el ítem"
-        case "HIDE_DYE":
-            return "Ocultar coloración del ítem (cuero)"
-        case "HIDE_ENCHANTS":
-            return "Ocultar encantamientos"
-        case "HIDE_PLACED_ON":
-            return "Ocultar en donde se puede colocar el ítem"
-        case "HIDE_POTION_EFFECTS":
-            return "Ocultar efectos de pociones"
-        case "HIDE_UNBREAKABLE":
-            return "Ocultar si el ítem es irrompible o no"
-    }
+    return i18n.t("itemflag_" + flag)
 }

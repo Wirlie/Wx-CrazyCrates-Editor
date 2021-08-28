@@ -153,5 +153,12 @@
     "enchantment_multishot": "Multishot",
     "enchantment_quick_charge": "Quick charge",
     "enchantment_piercing": "Piercing",
-    "enchantment_soul_speed": "Soul speed"
+    "enchantment_soul_speed": "Soul speed",
+    "itemflag_HIDE_ATTRIBUTES": "Hide Attributes like Damage",
+    "itemflag_HIDE_DESTROYS": "Hide what the ItemStack can break/destroy",
+    "itemflag_HIDE_DYE": "Hide dyes from coloured leather armour",
+    "itemflag_HIDE_ENCHANTS": "Hide enchants",
+    "itemflag_HIDE_PLACED_ON": "Hide where this ItemStack can be build/placed on",
+    "itemflag_HIDE_POTION_EFFECTS": "Hide potion effects",
+    "itemflag_HIDE_UNBREAKABLE": "Hide the unbreakable State"
 }
