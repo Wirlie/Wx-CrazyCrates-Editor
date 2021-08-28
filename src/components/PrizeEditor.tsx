@@ -389,10 +389,10 @@ function PrizeEditor(props: Props) {
                     {
                         enchantments.length === 0
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> No hay encantamientos configurados, prueba agregando un nuevo encantamiento.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_enchantments_configured")}</div>
                         :
                         <div className="border border-secondary bg-secondary p-3 mb-3">
-                            <FontAwesomeIcon icon={faInfo} /> Estos encantamientos se mostrará en la interfaz de previsualización de contenido de la caja. Estos encantamientos no se aplican al objeto, solo es algo visual.
+                            <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_enchantments_description")}
                         </div>
                     }
                     {
@@ -410,21 +410,21 @@ function PrizeEditor(props: Props) {
                                         })}
                                     </select>
                                     <div className="input-group-append">
-                                        <button className="btn btn-danger" type="button" onClick={() => handleEnchantmentRemove(index)}><FontAwesomeIcon icon={faTrash} /> Borrar</button>
+                                        <button className="btn btn-danger" type="button" onClick={() => handleEnchantmentRemove(index)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</button>
                                     </div>
                                 </div>
                             )
                         })
                     }
                     <div className="text-left mt-3">
-                        <span className="btn btn-success" onClick={() => handleEnchantmentAdd()}><FontAwesomeIcon icon={faPlus} /> Nuevo Encantamiento</span>
+                        <span className="btn btn-success" onClick={() => handleEnchantmentAdd()}><FontAwesomeIcon icon={faPlus} /> {t("button_new_enchantment")}</span>
                     </div>
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 3 ? " d-none" : "")}>
                     {
                         commands.length === 0
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> No hay comandos configurados, prueba agregando un nuevo comando.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_commands_configured")}</div>
                         : undefined
                     }
                     {
@@ -434,30 +434,30 @@ function PrizeEditor(props: Props) {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text" id="basic-addon1">/</span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="Ingresa un comando a ejecutar" aria-label="Username" aria-describedby="basic-addon1" value={command} onChange={(e) => handleCommandEdition(index, e.target.value)} />
+                                    <input type="text" className="form-control" placeholder={t("edit_prize_commands_input_placeholder")} aria-label="Username" aria-describedby="basic-addon1" value={command} onChange={(e) => handleCommandEdition(index, e.target.value)} />
                                     <div className="input-group-append">
-                                        <button className="btn btn-danger" type="button" onClick={() => handleCommandRemove(index)}><FontAwesomeIcon icon={faTrash} /> Borrar</button>
+                                        <button className="btn btn-danger" type="button" onClick={() => handleCommandRemove(index)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</button>
                                     </div>
                                 </div>
                             )
                         })
                     }
                     <div className="text-left mt-3">
-                        <span className="btn btn-success" onClick={() => handleCommandAdd()}><FontAwesomeIcon icon={faPlus} /> Nuevo Comando</span>
+                        <span className="btn btn-success" onClick={() => handleCommandAdd()}><FontAwesomeIcon icon={faPlus} /> {t("button_new_command")}</span>
                     </div>
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 4 ? " d-none" : "")}>
-                    <b>Mensaje a Mostrar:</b><br/>
-                    <textarea rows={4} className="form-control mb-2 mt-1" placeholder="Ingresa un mensaje a mostrar" value={messages.join("\n")} onChange={(e) => handleMessageEdition(e.target.value)} />
+                    <b>{t("edit_prize_messages_to_display")}</b><br/>
+                    <textarea rows={4} className="form-control mb-2 mt-1" placeholder={t("edit_prize_messages_input_placeholder")} value={messages.join("\n")} onChange={(e) => handleMessageEdition(e.target.value)} />
                     <div className="border border-secondary bg-secondary p-3 mb-3">
-                        <FontAwesomeIcon icon={faInfo} /> Cada salto de línea es un mensaje que será mostrado en el chat del juego cuando el jugador reciba la recompensa.
+                        <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_messages_description")}
                     </div>
                     <hr />
-                    <b>Previsualización:</b><br/>
+                    <b>{t("edit_prize_messages_preview")}</b><br/>
                     {
                         messages.length === 0 || (messages.length === 1 && messages[0].length === 0)
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> Debes configurar un mensaje para que pueda ser previsualizado.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_messages_should_configure_a_message")}</div>
                         :
                         <div className="minecraft-chat-preview mt-1">
                             
@@ -473,21 +473,18 @@ function PrizeEditor(props: Props) {
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 5 ? " d-none" : "")}>
                     <div className="border border-secondary bg-secondary p-3 mb-3">
-                        <FontAwesomeIcon icon={faInfo} /> Los siguientes objetos serán entregados al jugador si obtiene este premio, puedes
-                        configurar uno o más objetos si lo deseas. Es recomendable que uses esta configuración en lugar de un comando de Essentials
-                        o similar para evitar inconsistencias, aunque si lo deseas, puedes entregar el objeto mediante un comando en lugar de usar
-                        esta configuración.
+                        <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_items_description")}
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
-                        <b>Objetos a dar:</b>
-                        <span className="btn btn-success" onClick={handleAddPrizeItem}><FontAwesomeIcon icon={faPlus} /> Nuevo Objeto</span>
+                        <b>{t("edit_prize_items_to_give")}</b>
+                        <span className="btn btn-success" onClick={handleAddPrizeItem}><FontAwesomeIcon icon={faPlus} /> {t("button_new_item")}</span>
                     </div>
                     <div className="mt-2">
                         {
                             prizeItems.length === 0
                             ?
                                 <div className="bg-warning p-3 border border-warning">
-                                    <FontAwesomeIcon icon={faExclamationCircle} /> No haz configurado ningún objeto hasta el momento, prueba agregando un objeto para poder editarlo.
+                                    <FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_items_configured")}
                                 </div>
                             : prizeItems.map((element, index) => {
 

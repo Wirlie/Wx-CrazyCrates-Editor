@@ -96,5 +96,21 @@
     "select_op_no": "NO",
     "edit_prize_firework_description": "Habilitar este efecto hará que explote un Cohete en la ubicación de la caja cuando este premio le toque a un jugador.",
     "edit_prize_glow_effect": "Efecto de Brillo:",
-    "edit_prize_glow_effect_description": "Habilitar este efecto hará que el ítem brille con el efecto de encantamiento (el mismo que obtienes cuando encantas un ítem desde la mesa de encantamientos)."
+    "edit_prize_glow_effect_description": "Habilitar este efecto hará que el ítem brille con el efecto de encantamiento (el mismo que obtienes cuando encantas un ítem desde la mesa de encantamientos).",
+    "edit_prize_no_enchantments_configured": "No hay encantamientos configurados, prueba agregando un nuevo encantamiento.",
+    "edit_prize_enchantments_description": "Estos encantamientos se mostrará en la interfaz de previsualización de contenido de la caja. Estos encantamientos no se aplican al objeto, solo es algo visual.",
+    "button_delete": "Borrar",
+    "button_new_enchantment": "Nuevo Encantamiento",
+    "edit_prize_no_commands_configured": "No hay comandos configurados, prueba agregando un nuevo comando.",
+    "edit_prize_commands_input_placeholder": "Ingresa un comando a ejecutar",
+    "button_new_command": "Nuevo Comando",
+    "edit_prize_messages_input_placeholder": "Ingresa un mensaje a mostrar",
+    "edit_prize_messages_to_display": "Mensaje a Mostrar:",
+    "edit_prize_messages_description": "Cada salto de línea es un mensaje que será mostrado en el chat del juego cuando el jugador reciba la recompensa.",
+    "edit_prize_messages_preview": "Previsualización:",
+    "edit_prize_messages_should_configure_a_message": "Debes configurar un mensaje para que pueda ser previsualizado.",
+    "edit_prize_items_description": "Los siguientes objetos serán entregados al jugador si obtiene este premio, puedes configurar uno o más objetos si lo deseas. Es recomendable que uses esta configuración en lugar de un comando de Essentials o similar para evitar inconsistencias, aunque si lo deseas, puedes entregar el objeto mediante un comando en lugar de usar esta configuración.",
+    "edit_prize_items_to_give": "Objetos a dar:",
+    "button_new_item": "Nuevo Objeto",
+    "edit_prize_no_items_configured": "No haz configurado ningún objeto hasta el momento, prueba agregando un objeto para poder editarlo."
 }

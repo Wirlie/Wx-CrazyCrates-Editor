@@ -96,5 +96,21 @@
     "select_op_no": "NO",
     "edit_prize_firework_description": "If enabled, a firework effect will be spawned at crate location when a Player wons this prize.",
     "edit_prize_glow_effect": "Glowing Effect:",
-    "edit_prize_glow_effect_description": "If enabled, the item displayed for this prize inside the in-game GUI will have a glowing effect (the same glowing effect when you enchant an item)."
+    "edit_prize_glow_effect_description": "If enabled, the item displayed for this prize inside the in-game GUI will have a glowing effect (the same glowing effect when you enchant an item).",
+    "edit_prize_no_enchantments_configured": "No enchantments configured yet, try to add one enchantment first.",
+    "edit_prize_enchantments_description": "All enchantments configured here will be displayed in the item displayed inside the in-game GUI, but will not be applied to the final item that the player will get.",
+    "button_delete": "Delete",
+    "button_new_enchantment": "New Enchantment",
+    "edit_prize_no_commands_configured": "No commands configured yet, try to add one command first.",
+    "edit_prize_commands_input_placeholder": "Type the command to execute, without the /",
+    "button_new_command": "New Command",
+    "edit_prize_messages_input_placeholder": "Enter a message to show",
+    "edit_prize_messages_to_display": "Messages to Show:",
+    "edit_prize_messages_description": "Each line break is a message that will be displayed at in-game chat when a player wons this prize.",
+    "edit_prize_messages_preview": "Preview:",
+    "edit_prize_messages_should_configure_a_message": "You should configure a message to be previewed.",
+    "edit_prize_items_description": "Each item configured here will be give to the player that wons this Prize. You can configure one or more Items, and you should use this configuration instead of giving items through commands like the /give command of Essentials, but, if you want, you can configure commands instead of using this feature provided by Crazy Crates.",
+    "edit_prize_items_to_give": "Items to give:",
+    "button_new_item": "New Item",
+    "edit_prize_no_items_configured": "No items configured yet, try to add one item first."
 }
