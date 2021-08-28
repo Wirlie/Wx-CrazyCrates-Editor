@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     title: string
@@ -17,6 +18,8 @@ function Modal(props: React.PropsWithChildren<Props>) {
         defaultCallback
     } = props
 
+    let {t} = useTranslation()
+
     if(!open) return <></>
 
     return (
@@ -30,7 +33,7 @@ function Modal(props: React.PropsWithChildren<Props>) {
                     {
                         buttonRender === undefined
                         ?
-                            <span className="btn btn-primary" onClick={() => defaultCallback?.()}>Aceptar</span>
+                            <span className="btn btn-primary" onClick={() => defaultCallback?.()}>{t("button_accept")}</span>
                         : buttonRender
                     }
                 </div>

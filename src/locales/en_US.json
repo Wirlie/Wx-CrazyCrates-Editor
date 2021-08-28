@@ -194,5 +194,14 @@
     "crate_editor_type_title": "Crate Type:",
     "crate_editor_general_section_general_title": "GENERAL CRATE DATA",
     "crate_editor_general_section_key_title": "VIRTUAL/PHYSICAL CRATE KEY DATA",
-    "crate_editor_general_section_hologram_title": "HOLOGRAM CRATE DATA"
+    "crate_editor_general_section_hologram_title": "HOLOGRAM CRATE DATA",
+    "modal_warning_title": "Warning",
+    "modal_extradata_warning_1": "Enabling this feature will add extra data to the structure of the YAML file of this Crate that are not present in the original Crazy Crates file.",
+    "modal_extradata_warning_2": "This have no impact on performance or an effect at server side, so do not worry, this is only a message to notify that the file will have extra data that only this editor can recognize.",
+    "crate_editor_special_global_lore_title": "Use a global lore for all prizes.",
+    "crate_editor_special_global_lore_description": "Global lore will be prepended to the specific lore of a Prize, so you can use global lore to share same information across all prizes. Remember that you can use some placeholders such: {Chance} {DisplayName} {DisplayAmount} {CommandCount}, that will be replaced depending on the Prize.",
+    "crate_editor_special_global_lore_no_data": "Type a description to preview it...",
+    "crate_editor_special_global_lore_preview": "Preview",
+    "crate_editor_special_global_lore_input_placeholder": "Type a description...",
+    "button_accept": "Accept"
 }

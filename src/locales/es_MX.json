@@ -194,5 +194,14 @@
     "crate_editor_type_title": "Tipo de Caja:",
     "crate_editor_general_section_general_title": "DATOS GENERALES DE LA CAJA",
     "crate_editor_general_section_key_title": "DATOS DE LLAVE FÍSICA/VIRTUAL DE LA CAJA",
-    "crate_editor_general_section_hologram_title": "HOLOGRAMA DE LA CAJA"
+    "crate_editor_general_section_hologram_title": "HOLOGRAMA DE LA CAJA",
+    "modal_warning_title": "Advertencia",
+    "modal_extradata_warning_1": "Habilitar la función de descripción global para todos los premios de esta caja hará que se hagan algunos cambios al archivo .yml de la caja agregando información extra que no está presente en el esquema original del archivo.",
+    "modal_extradata_warning_2": "Esto no afecta negativamente al servidor, simplemente es una advertencia para notificar la adición de información extra al archivo .yml que solo el editor puede procesar, pero que no está presente en el plugin original.",
+    "crate_editor_special_global_lore_title": "Usar una descripción global para todos los premios.",
+    "crate_editor_special_global_lore_description": "La descripción global permite definir una descripción que tendrán todos los premios de esta caja Antes de la descripción específica. Esto es útil si quieres definir una descripción que compartan todos los premios, recuerda que puedes usar algunos placeholders como: {Chance} {DisplayName} {DisplayAmount} {CommandCount}, los cuales se sustituirán dependiendo del premio.",
+    "crate_editor_special_global_lore_no_data": "Ingresa una descripción para previsualizar...",
+    "crate_editor_special_global_lore_preview": "Previsualización",
+    "crate_editor_special_global_lore_input_placeholder": "Ingresa una descripción...",
+    "button_accept": "Aceptar"
 }
