@@ -1,5 +1,6 @@
 import { Enchantment, ItemFlag } from './Constants'
 import languageData from './es_MX.json'
+import i18n from "i18next"
 export const LanguageEntries = languageData as { [key : string] : string }
 
 export function GetMaterialName(materialId: string, appendExtraData = true) : string | undefined {
@@ -89,88 +90,7 @@ function AppendExtraData(materialId: string, label: string, apply: boolean) : st
 }
 
 export function GetEnchantmentName(enchantment : Enchantment) : string {
-    switch (enchantment) {
-        case "bane_of_arthropods":
-            return "Perdición de los Artrópodos"
-        case "binding_curse":
-            return "Maldición de ligamiento"
-        case "aqua_affinity":
-            return "Afinidad acuática"
-        case "blast_protection":
-            return "Protección contra explosiones"
-        case "channeling":
-            return "Conductividad"
-        case "depth_strider":
-            return "Agilidad acuática"
-        case "efficiency":
-            return "Eficiencia"
-        case "feather_falling":
-            return "Caída pluma"
-        case "fire_aspect":
-            return "Aspecto de fuego"
-        case "fire_protection":
-            return "Protección contra el fuego"
-        case "flame":
-            return "Fuego"
-        case "fortune":
-            return "Fortuna"
-        case "frost_walker":
-            return "Paso Helado"
-        case "impaling":
-            return "Empalamiento"
-        case "infinity":
-            return "Infinidad"
-        case "knockback":
-            return "Retroceso"
-        case "looting":
-            return "Saqueo"
-        case "loyalty":
-            return "Lealtad"
-        case "luck_of_the_sea":
-            return "Suerte marina"
-        case "lure":
-            return "Atracción"
-        case "mending":
-            return "Reparación"
-        case "power":
-            return "Poder"
-        case "projectile_protection":
-            return "Protección contra proyectiles"
-        case "protection":
-            return "Protección"
-        case "punch":
-            return "Empuje"
-        case "respiration":
-            return "Respiración"
-        case "riptide":
-            return "Propulsión acuática"
-        case "sharpness":
-            return "Filo"
-        case "silk_touch":
-            return "Toque de seda"
-        case "smite":
-            return "Castigo"
-        case "sweeping":
-            return "Barrido"
-        case "thorns":
-            return "Espinas"
-        case "unbreaking":
-            return "Irrompibilidad"
-        case "unknown":
-            return "Desconocido"
-        case "vanishing_curse":
-            return "Maldición de desaparición"
-        case "multishot":
-            return "Multidisparo"
-        case "quick_charge":
-            return "Carga rápida"
-        case "piercing":
-            return "Perforación"
-        case "soul_speed":
-            return "Velocidad de alma"
-    }
-
-    return (enchantment as string).toUpperCase()
+    return i18n.t("enchantment_" + enchantment)
 }
 
 export function GetEnchantmentLevelAsRoman(level : number) : string {
