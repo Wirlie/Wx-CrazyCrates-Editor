@@ -128,9 +128,7 @@ function SpecialTab(props: Props) {
                                     globalLore.length === 0
                                     ?
                                     <>
-                                        <Trans i18nKey="crate_editor_special_global_lore_no_data">
-                                            {t("crate_editor_special_global_lore_no_data")}
-                                        </Trans>
+                                        {t("crate_editor_special_global_lore_no_data")}
                                     </>
                                     : unsavedTextareaValue.map((line) => {
                                         return (
