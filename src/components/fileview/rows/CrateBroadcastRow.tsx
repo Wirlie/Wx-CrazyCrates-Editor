@@ -1,6 +1,7 @@
 import { faCog, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { buildOptionToggle } from '../../../resources/app/EditorUtil'
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 function CrateBroadcastRow(props: Props) {
+    let {t} = useTranslation()
+
     const {
         value,
         onValueChange
@@ -33,7 +36,7 @@ function CrateBroadcastRow(props: Props) {
     if(!enableEdit) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faCog} /> <b>Anunciar Apertura:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faCog} /> <b>{t("crate_editor_announce_broadcast_title")}</b></td>
                 <td className="w-100">{broadcastOpen}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEnableEdit(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -41,11 +44,11 @@ function CrateBroadcastRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faCog} /> <b>Anunciar Apertura:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faCog} /> <b>{t("crate_editor_announce_broadcast_title")}</b></td>
                 <td className="w-100">
                     <select className="form-control" value={unsavedValue ? "true" : "false"} onChange={(e) => setUnsavedValue(e.target.value === "true")}>
-                        <option value="true">SI</option>
-                        <option value="false">NO</option>
+                        <option value="true">{t("select_op_yes")}</option>
+                        <option value="false">{t("select_op_no")}</option>
                     </select>
                 </td>
                 <td><span className="btn btn-success no-break btn-sm" onClick={() => handleSave()}><FontAwesomeIcon icon={faSave} /></span></td>

@@ -26,9 +26,9 @@ export const buildOptionToggle = (check: any) => {
     }
 
     if(check === true) {
-        return <><FontAwesomeIcon icon={faCheck} /> Si</>
+        return <><FontAwesomeIcon icon={faCheck} /> {i18n.t("select_op_yes")}</>
     } else {
-        return <><FontAwesomeIcon icon={faTimes} /> No</>
+        return <><FontAwesomeIcon icon={faTimes} /> {i18n.t("select_op_no")}</>
     }
 }
 export const buildOptionItem = (check: string | undefined) => {

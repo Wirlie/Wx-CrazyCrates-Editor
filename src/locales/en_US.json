@@ -160,5 +160,8 @@
     "itemflag_HIDE_ENCHANTS": "Hide enchants",
     "itemflag_HIDE_PLACED_ON": "Hide where this ItemStack can be build/placed on",
     "itemflag_HIDE_POTION_EFFECTS": "Hide potion effects",
-    "itemflag_HIDE_UNBREAKABLE": "Hide the unbreakable State"
+    "itemflag_HIDE_UNBREAKABLE": "Hide the unbreakable State",
+    "crate_editor_general_section_general_title": "GENERAL CRATE DATA",
+    "crate_editor_general_section_key_title": "VIRTUAL/PHYSICAL CRATE KEY DATA",
+    "crate_editor_general_section_hologram_title": "HOLOGRAM CRATE DATA"
 }

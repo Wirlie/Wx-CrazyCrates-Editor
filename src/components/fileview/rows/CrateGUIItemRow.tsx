@@ -1,6 +1,7 @@
 import { faImage, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { buildOptionItem } from '../../../resources/app/EditorUtil'
 import { GetItemByName, TranslatedMinecraftItem } from '../../../util/MinecraftItem'
 import ItemSelect from '../../ItemSelect'
@@ -11,6 +12,8 @@ interface Props {
 }
 
 function CrateGUIItemRow(props: Props) {
+    let {t} = useTranslation()
+
     const {
         value,
         onValueChange
@@ -35,7 +38,7 @@ function CrateGUIItemRow(props: Props) {
     if(!enableEdit) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>Icono en GUI:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>{t("crate_editor_icon_title")}</b></td>
                 <td className="w-100">{guiItem}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEnableEdit(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -43,7 +46,7 @@ function CrateGUIItemRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>Icono en GUI:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>{t("crate_editor_icon_title")}</b></td>
                 <td className="w-100">
                     <div className="d-flex flex-workarount">
                         <span className={"icon-minecraft mr-3 " + unsavedValue.css} />
