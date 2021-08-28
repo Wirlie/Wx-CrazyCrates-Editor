@@ -82,5 +82,19 @@
     "edit_prize_material_to_display": "Material a Mostrar:",
     "edit_prize_material_to_display_description": "Selecciona el material que se mostrará como icono en el Menú de premios de esta caja para este premio.",
     "edit_prize_amount_to_display": "Cantidad a Mostrar:",
-    "edit_prize_amount_to_display_description": "Ajusta la cantidad del Stack que se mostrará en el Menú de premios de esta caja para este premio."
+    "edit_prize_amount_to_display_description": "Ajusta la cantidad del Stack que se mostrará en el Menú de premios de esta caja para este premio.",
+    "edit_prize_lore": "Descripción del Premio:",
+    "edit_prize_lore_placeholder": "Ingresa una descripción (opcional)...",
+    "edit_prize_lore_description": "Esta descripción se mostrará en el Menú de premios de esta caja para este premio, cada línea equivale a una línea en el mensaje flotante de Minecraft.",
+    "edit_prize_lore_preview": "Previsualización:",
+    "edit_prize_range": "Rango:",
+    "edit_prize_range_description": "Rango del cálculo del % de chance, se recomienda dejar en 100 a menos que conozcas como funciona este cálculo.",
+    "edit_prize_chance": "Chance:",
+    "edit_prize_chance_description": "Define la chance de este objeto, ten en cuenta que el cálculo se hace en base a la chance total de todos los premios.",
+    "edit_prize_firework": "Efecto de Cohete:",
+    "select_op_yes": "SI",
+    "select_op_no": "NO",
+    "edit_prize_firework_description": "Habilitar este efecto hará que explote un Cohete en la ubicación de la caja cuando este premio le toque a un jugador.",
+    "edit_prize_glow_effect": "Efecto de Brillo:",
+    "edit_prize_glow_effect_description": "Habilitar este efecto hará que el ítem brille con el efecto de encantamiento (el mismo que obtienes cuando encantas un ítem desde la mesa de encantamientos)."
 }
