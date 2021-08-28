@@ -112,5 +112,6 @@
     "edit_prize_items_description": "Each item configured here will be give to the player that wons this Prize. You can configure one or more Items, and you should use this configuration instead of giving items through commands like the /give command of Essentials, but, if you want, you can configure commands instead of using this feature provided by Crazy Crates.",
     "edit_prize_items_to_give": "Items to give:",
     "button_new_item": "New Item",
-    "edit_prize_no_items_configured": "No items configured yet, try to add one item first."
+    "edit_prize_no_items_configured": "No items configured yet, try to add one item first.",
+    "button_close_app": "Close Application"
 }

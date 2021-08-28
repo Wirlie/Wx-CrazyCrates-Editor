@@ -112,5 +112,6 @@
     "edit_prize_items_description": "Los siguientes objetos serán entregados al jugador si obtiene este premio, puedes configurar uno o más objetos si lo deseas. Es recomendable que uses esta configuración en lugar de un comando de Essentials o similar para evitar inconsistencias, aunque si lo deseas, puedes entregar el objeto mediante un comando en lugar de usar esta configuración.",
     "edit_prize_items_to_give": "Objetos a dar:",
     "button_new_item": "Nuevo Objeto",
-    "edit_prize_no_items_configured": "No haz configurado ningún objeto hasta el momento, prueba agregando un objeto para poder editarlo."
+    "edit_prize_no_items_configured": "No haz configurado ningún objeto hasta el momento, prueba agregando un objeto para poder editarlo.",
+    "button_close_app": "Cerrar Aplicación"
 }
