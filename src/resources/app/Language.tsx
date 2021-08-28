@@ -1,18 +1,25 @@
 import { Enchantment, ItemFlag } from './Constants'
-import languageData from './es_MX.json'
+import languageDataEsMX from './es_MX.json'
+import languageDataEnUS from './en_US.json'
 import i18n from "i18next"
-export const LanguageEntries = languageData as { [key : string] : string }
+
+const LanguageEntriesEsMx = languageDataEsMX as { [key : string] : string }
+const LanguageEntriesEnUs = languageDataEnUS as { [key : string] : string }
+
+function GetLanguageEntry(entry : string) {
+    return i18n.language === "esMX" ? LanguageEntriesEsMx[entry] : LanguageEntriesEnUs[entry]
+}
 
 export function GetMaterialName(materialId: string, appendExtraData = true) : string | undefined {
     
     let materialIdLowerCase = materialId.toLowerCase()
-    let tryByBlock = LanguageEntries["block.minecraft." + materialIdLowerCase]
+    let tryByBlock = GetLanguageEntry("block.minecraft." + materialIdLowerCase)
 
     if(tryByBlock !== undefined && tryByBlock !== null) {
         return AppendExtraData(materialId, tryByBlock, appendExtraData)
     }
 
-    let tryByMaterial = LanguageEntries["item.minecraft." + materialIdLowerCase]
+    let tryByMaterial = GetLanguageEntry("item.minecraft." + materialIdLowerCase)
 
     if(tryByMaterial !== undefined && tryByMaterial !== null) {
         return AppendExtraData(materialId, tryByMaterial, appendExtraData)
@@ -26,61 +33,61 @@ function AppendExtraData(materialId: string, label: string, apply: boolean) : st
 
     switch(materialId) {
         case "flower_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.flower_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.flower_banner_pattern.desc") + ")"
             break
         case "globe_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.globe_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.globe_banner_pattern.desc") + ")"
             break
         case "mojang_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.mojang_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.mojang_banner_pattern.desc") + ")"
             break
         case "piglin_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.piglin_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.piglin_banner_pattern.desc") + ")"
             break
         case "skull_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.skull_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.skull_banner_pattern.desc") + ")"
             break
         case "creeper_banner_pattern":
-            label += " (" + LanguageEntries["item.minecraft.creeper_banner_pattern.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.creeper_banner_pattern.desc") + ")"
             break
         case "music_disc_11":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_11.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_11.desc") + ")"
             break
         case "music_disc_13":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_13.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_13.desc") + ")"
             break
         case "music_disc_blocks":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_blocks.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_blocks.desc") + ")"
             break
         case "music_disc_cat":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_cat.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_cat.desc") + ")"
             break
         case "music_disc_chirp":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_chirp.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_chirp.desc") + ")"
             break
         case "music_disc_far":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_far.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_far.desc") + ")"
             break
         case "music_disc_mall":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_mall.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_mall.desc") + ")"
             break
         case "music_disc_mellohi":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_mellohi.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_mellohi.desc") + ")"
             break
         case "music_disc_pigstep":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_pigstep.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_pigstep.desc") + ")"
             break
         case "music_disc_stal":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_stal.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_stal.desc") + ")"
             break
         case "music_disc_strad":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_strad.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_strad.desc") + ")"
             break
         case "music_disc_wait":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_wait.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_wait.desc") + ")"
             break
         case "music_disc_ward":
-            label += " (" + LanguageEntries["item.minecraft.music_disc_ward.desc"] + ")"
+            label += " (" + GetLanguageEntry("item.minecraft.music_disc_ward.desc") + ")"
             break
         default:
             break

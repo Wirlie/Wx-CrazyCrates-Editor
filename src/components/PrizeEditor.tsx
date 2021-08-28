@@ -5,14 +5,12 @@ import { constant_enchantments, Enchantment } from '../resources/app/Constants'
 import { GetEnchantmentName, GetMaterialName } from '../resources/app/Language'
 import { PrizeData } from '../resources/app/PrizeData'
 import { PrizeItem, PrizeItemToString, StringToPrizeItem } from '../resources/app/PrizeItem'
-import { GetItemByName, TranslatedMinecraftItem, TranslatedItems } from '../util/MinecraftItem'
+import { GetItemByName, TranslatedMinecraftItem } from '../util/MinecraftItem'
 import { formatColors } from '../util/MinecraftUtil'
 import ItemSelect from './ItemSelect'
 import ItemTooltip from './ItemTooltip'
 import ItemTooltipFormat from './ItemTooltipFormat'
-import Switch from "react-switch"
 import PrizeItemEditor from './PrizeItemEditor'
-import { sortStringArray } from '../resources/app/Util'
 import { useTranslation } from 'react-i18next'
 
 interface Props {

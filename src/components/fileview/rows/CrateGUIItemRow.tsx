@@ -2,7 +2,7 @@ import { faImage, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { buildOptionItem } from '../../../resources/app/EditorUtil'
-import { GetItemByName, TranslatedItems, TranslatedMinecraftItem } from '../../../util/MinecraftItem'
+import { GetItemByName, TranslatedMinecraftItem } from '../../../util/MinecraftItem'
 import ItemSelect from '../../ItemSelect'
 
 interface Props {

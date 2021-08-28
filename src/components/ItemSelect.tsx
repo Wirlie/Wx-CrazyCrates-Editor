@@ -1,6 +1,6 @@
 import Select, { SelectItemRenderer } from 'react-dropdown-select'
 import { GetMaterialName } from '../resources/app/Language';
-import { TranslatedItems, TranslatedMinecraftItem } from '../util/MinecraftItem'
+import { GetTranslatedItems, TranslatedMinecraftItem } from '../util/MinecraftItem'
 
 interface Props {
     values: TranslatedMinecraftItem[],
@@ -23,7 +23,7 @@ function ItemSelect(props: Props) {
         <Select 
             className="w-100"
             multi={false}
-            options={TranslatedItems} 
+            options={GetTranslatedItems()} 
             onChange={props.onChange}
             values={props.values}
             itemRenderer={customSelectItemRenderer}
