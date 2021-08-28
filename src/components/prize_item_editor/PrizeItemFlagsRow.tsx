@@ -1,4 +1,4 @@
-import { faBookMedical, faCog, faCogs, faFolderPlus, faInfoCircle, faPen, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCogs, faFolderPlus, faInfoCircle, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

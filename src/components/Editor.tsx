@@ -1,6 +1,5 @@
 import React from 'react'
 import { ipcRenderer } from 'electron'
-import Modal from './modal/Modal'
 import FileExplorer, { FileInfo } from './FileExplorer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'

@@ -24,7 +24,7 @@ function CrateBroadcastMessageRow(props: Props) {
 
     React.useEffect(() => {
         setUnsavedValue(value ?? t("crate_editor_broadcast_default"))
-    }, [value])
+    }, [value, t])
 
     let handleSave = () => {
         setEnableEdit(false)

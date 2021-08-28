@@ -1,4 +1,4 @@
-import { faBook, faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, faPlus, faSave, faSearch, faTag, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, faPlus, faSave, faSearch, faTag, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { constant_enchantments, Enchantment } from '../resources/app/Constants'
@@ -243,7 +243,7 @@ function PrizeEditor(props: Props) {
         let newArray : PrizeItem[] = []
 
         for(let i = 0; i < prizeItems.length; i++) {
-            if(i == index) {
+            if(i === index) {
                 newArray.push(newData)
             } else {
                 newArray.push(prizeItems[i])

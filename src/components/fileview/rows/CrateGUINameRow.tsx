@@ -24,7 +24,7 @@ function CrateGUINameRow(props: Props) {
 
     React.useEffect(() => {
         setUnsavedValue(value ?? t("crate_editor_gui_name_default"))
-    }, [value])
+    }, [value, t])
 
     let handleSave = () => {
         setEnableEdit(false)

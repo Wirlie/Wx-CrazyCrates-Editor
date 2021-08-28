@@ -24,7 +24,7 @@ function CrateHologramMessageRow(props: Props) {
 
     React.useEffect(() => {
         setUnsavedValue(value ?? [t("crate_editor_hologram_message_default")])
-    }, [value])
+    }, [value, t])
 
     let handleSave = () => {
         setEnableEdit(false)

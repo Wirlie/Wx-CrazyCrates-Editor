@@ -5,7 +5,7 @@ import Modal from '../../modal/Modal';
 import ItemTooltip from '../../ItemTooltip';
 import ItemTooltipFormat from '../../ItemTooltipFormat';
 import { parsePlaceholders } from '../../FileView';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     crateData: CCrate | undefined,

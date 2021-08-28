@@ -132,7 +132,7 @@ function FileView(props: Props) {
                 }
             }
         })
-    }, [file.fullPath, file.name])
+    }, [file.fullPath, file.name, t])
 
     let updateGlobalLores = React.useCallback(() => {
         let newGlobalLore = data?.CCEditorConfig?.GlobalLore ?? []
@@ -184,7 +184,7 @@ function FileView(props: Props) {
         setRawData(newRawData)
         mainEditorRef.current?.setValue(newRawData)
         setMonoData("")
-    }, [data, saveFromMonoData, doParseFile, file.fullPath, updateGlobalLores])
+    }, [data, saveFromMonoData, doParseFile, file.fullPath, updateGlobalLores, t])
 
     let doSaveRaw = (data: string) => {
         let destination = file.fullPath
@@ -287,7 +287,7 @@ function FileView(props: Props) {
             data!!.Prizes = newPrizesArray
             doSaveDataWithoutRecalculation()
         }
-    }, [data, doSaveDataWithoutRecalculation, recalculatePrizesArray])
+    }, [data, doSaveDataWithoutRecalculation, recalculatePrizesArray, t])
     
     React.useEffect(() => {
         recalculateSlotData()

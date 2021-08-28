@@ -1,6 +1,6 @@
 import { faCheck, faExclamationTriangle, faTimes } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { GetItemByName, TranslatedMinecraftItem } from "../../util/MinecraftItem"
+import { GetItemByName } from "../../util/MinecraftItem"
 import { formatColors } from "../../util/MinecraftUtil"
 import { GetMaterialName } from "./Language"
 import i18n from "i18next"
