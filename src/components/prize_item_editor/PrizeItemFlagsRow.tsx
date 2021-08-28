@@ -1,6 +1,7 @@
 import { faBookMedical, faCog, faCogs, faFolderPlus, faInfoCircle, faPen, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { constant_item_flags, ItemFlag } from '../../resources/app/Constants'
 import { GetItemFlagName } from '../../resources/app/Language'
 import Modal from '../modal/Modal'
@@ -77,26 +78,28 @@ function PrizeItemFlagsRow(props: Props) {
         setOpenAddModal(false)
     }
 
+    let {t} = useTranslation()
+
     return (
         <>
             <Modal 
                 open={openAddModal} 
-                title="Agregar Flag" 
+                title={t("prize_item_editor_flags_add_modal_title")} 
                 defaultCallback={() => setOpenAddModal(false)} 
                 level={2}
                 buttonRender={
                     <div className="d-flex justify-content-between">
                         <div>
-                            <span className="btn btn-danger mr-2" onClick={() => setOpenAddModal(false)}><FontAwesomeIcon icon={faTimes} /> Cancelar</span>
-                            <span className="btn btn-success" onClick={() => handleAddItemFlagButton()}><FontAwesomeIcon icon={faPlus} /> Agregar</span>
+                            <span className="btn btn-danger mr-2" onClick={() => setOpenAddModal(false)}><FontAwesomeIcon icon={faTimes} /> {t("button_cancel")}</span>
+                            <span className="btn btn-success" onClick={() => handleAddItemFlagButton()}><FontAwesomeIcon icon={faPlus} /> {t("button_add")}</span>
                         </div>
-                        <span className="btn btn-secondary" onClick={() => handleAddAllItemFlagsButton()}><FontAwesomeIcon icon={faFolderPlus} /> Agregar Todos</span>
+                        <span className="btn btn-secondary" onClick={() => handleAddAllItemFlagsButton()}><FontAwesomeIcon icon={faFolderPlus} /> {t("button_add_all")}</span>
                     </div>
                 }
             >
                 <div>
                     <div className="bg-secondary text-sm p-3">
-                        <FontAwesomeIcon icon={faInfoCircle} /> Selecciona un Flag de la lista de opciones, y posteriormente da clic en el botón 'Agregar'. Los Flags que ya hayas seleccionado no aparecerán en la lista desplegable.
+                        <FontAwesomeIcon icon={faInfoCircle} /> {t("prize_item_editor_flags_description")}
                     </div>
                     <select className="form-control mt-3" value={selectedFlag} onChange={(e) => setSelectedFlag(e.target.value as ItemFlag)}>
                         {
@@ -110,14 +113,14 @@ function PrizeItemFlagsRow(props: Props) {
                 </div>
             </Modal>
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCogs} /> Flags de ítem</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCogs} /> {t("prize_item_editor_flags_title")}</b></td>
                 <td className="w-100" colSpan={2}>
                     <div>
                         {
                             flags === undefined || flags.length === 0
                             ?
                                 <div className="bg-secondary p-2 text-sm text-center">
-                                    Aún no se han definido flags para este ítem
+                                    {t("prize_item_editor_flags_no_flags")}
                                 </div>
                             : 
                                 flags.map((el) => {
@@ -131,7 +134,7 @@ function PrizeItemFlagsRow(props: Props) {
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className="btn btn-danger btn-sm" onClick={() => handleRemoveItemFlagButton(el)}><FontAwesomeIcon icon={faTrash} /> Borrar</span>
+                                                <span className="btn btn-danger btn-sm" onClick={() => handleRemoveItemFlagButton(el)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</span>
                                             </div>
                                         </div>
                                     )
@@ -141,7 +144,7 @@ function PrizeItemFlagsRow(props: Props) {
                     {
                         remainingOptions.length > 0 ?
                         <div className="mt-2">
-                            <span className="btn btn-success btn-sm" onClick={() => setOpenAddModal(true)}><FontAwesomeIcon icon={faPlus} /> Agregar</span>
+                            <span className="btn btn-success btn-sm" onClick={() => setOpenAddModal(true)}><FontAwesomeIcon icon={faPlus} /> {t("button_add")}</span>
                         </div>
                         : undefined
                     }

@@ -2,6 +2,7 @@ import { faAirFreshener, faBook, faBookMedical, faCalculator, faChevronDown, faC
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { EnchantmentAndLevel, ItemFlag } from '../resources/app/Constants'
 import { buildOption, buildOptionLore, buildOptionToggle, buildOptionTooltip } from '../resources/app/EditorUtil'
 import { GetMaterialName } from '../resources/app/Language'
@@ -105,6 +106,8 @@ function PrizeItemEditor(props: Props) {
         })
     }
 
+    let {t} = useTranslation()
+
     return (
         <div className="border border-dark mb-3 p-3 bg-dark">
             <div className={"d-flex align-items-center justify-content-between" + (expanded ? " mb-3" : "")}>
@@ -113,7 +116,7 @@ function PrizeItemEditor(props: Props) {
                     <span className={"icon-minecraft mr-2 " + itemMaterial.css} /> <b>{buildOptionTooltip(itemName)}</b>
                 </div>
                 <div>
-                    <span className="btn btn-danger btn-sm" onClick={() => props.onDelete()}><FontAwesomeIcon icon={faTrash} /> Borrar</span>
+                    <span className="btn btn-danger btn-sm" onClick={() => props.onDelete()}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</span>
                 </div>
             </div>
             <table className={"table table-dark m-0 border border-dark" + (expanded ? "" : " d-none")}>

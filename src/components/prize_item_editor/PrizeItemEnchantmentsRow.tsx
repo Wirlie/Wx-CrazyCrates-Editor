@@ -1,6 +1,7 @@
 import { faBookMedical, faInfo, faInfoCircle, faPen, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { constant_enchantments, Enchantment, EnchantmentAndLevel } from '../../resources/app/Constants'
 import { GetEnchantmentLevelAsRoman, GetEnchantmentName } from '../../resources/app/Language'
 import Modal from '../modal/Modal'
@@ -81,23 +82,25 @@ function PrizeItemEnchantmentsRow(props: Props) {
         }
     }
 
+    let {t} = useTranslation()
+
     return (
         <>
             <Modal 
                 open={openAddModal} 
-                title="Agregar Encantamiento" 
+                title={t("prize_item_editor_enchantments_add_modal_title")}
                 defaultCallback={() => setOpenAddModal(false)} 
                 level={2}
                 buttonRender={
                     <>
-                        <span className="btn btn-danger mr-2" onClick={() => setOpenAddModal(false)}><FontAwesomeIcon icon={faTimes} /> Cancelar</span>
-                        <span className="btn btn-success" onClick={() => handleAddEnchantmentButton()}><FontAwesomeIcon icon={faPlus} /> Agregar</span>
+                        <span className="btn btn-danger mr-2" onClick={() => setOpenAddModal(false)}><FontAwesomeIcon icon={faTimes} /> {t("button_cancel")}</span>
+                        <span className="btn btn-success" onClick={() => handleAddEnchantmentButton()}><FontAwesomeIcon icon={faPlus} /> {t("button_add")}</span>
                     </>
                 }
             >
                 <div>
                     <div className="bg-secondary text-sm p-3">
-                        <FontAwesomeIcon icon={faInfoCircle} /> Selecciona un encantamiento de la lista de opciones, y posteriormente da clic en el botón 'Agregar'. Los encantamientos que ya hayas seleccionado no aparecerán en la lista desplegable.
+                        <FontAwesomeIcon icon={faInfoCircle} /> {t("prize_item_editor_enchantments_description")}
                     </div>
                     <select className="form-control mt-3" value={selectedEnchantment} onChange={(e) => setSelectedEnchantment(e.target.value as Enchantment)}>
                         {
@@ -108,19 +111,19 @@ function PrizeItemEnchantmentsRow(props: Props) {
                             })
                         }
                     </select>
-                    <label className="mt-3">Nivel de Encantamiento:</label>
+                    <label className="mt-3">{t("prize_item_editor_enchantments_level")}</label>
                     <input type="number" min={1} max={10} value={selectedLevel ?? 1} className="form-control" onChange={(e) => setSelectedLevel(parseInt(e.target.value))} />
                 </div>
             </Modal>
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faBookMedical} /> Encantamientos</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faBookMedical} /> {t("prize_item_editor_enchantments_title")}</b></td>
                 <td className="w-100" colSpan={2}>
                     <div>
                         {
                             enchantments === undefined || enchantments.length === 0
                             ?
                                 <div className="bg-secondary p-2 text-sm text-center">
-                                    Aún no se han definido encantamientos
+                                    {t("prize_item_editor_enchantments_no_enchantments")}
                                 </div>
                             : 
                                 enchantments.map((el) => {
@@ -130,7 +133,7 @@ function PrizeItemEnchantmentsRow(props: Props) {
                                                 <span className={"icon-minecraft mr-2 icon-minecraft-enchanted-book"} /> {GetEnchantmentName(el.enchantment)} {GetEnchantmentLevelAsRoman(el.level)}
                                             </div>
                                             <div>
-                                                <span className="btn btn-danger btn-sm" onClick={() => handleRemoveEnchantmentButton(el.enchantment)}><FontAwesomeIcon icon={faTrash} /> Borrar</span>
+                                                <span className="btn btn-danger btn-sm" onClick={() => handleRemoveEnchantmentButton(el.enchantment)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</span>
                                             </div>
                                         </div>
                                     )
@@ -140,7 +143,7 @@ function PrizeItemEnchantmentsRow(props: Props) {
                     {
                         remainingOptions.length > 0 ?
                         <div className="mt-2">
-                            <span className="btn btn-success btn-sm" onClick={() => setOpenAddModal(true)}><FontAwesomeIcon icon={faPlus} /> Agregar</span>
+                            <span className="btn btn-success btn-sm" onClick={() => setOpenAddModal(true)}><FontAwesomeIcon icon={faPlus} /> {t("button_add")}</span>
                         </div>
                         : undefined
                     }
