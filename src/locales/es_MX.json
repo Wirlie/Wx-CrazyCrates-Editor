@@ -227,5 +227,6 @@
     "prize_item_editor_item_name_title": "Nombre del Ítem",
     "prize_item_editor_item_name_input_placeholder": "Ingresa un nombre a mostrar (opcional)...",
     "prize_item_editor_potion_title": "Efecto de Poción",
-    "prize_item_editor_unbreakeable_title": "Irrompible"
+    "prize_item_editor_unbreakeable_title": "Irrompible",
+    "language_title": "Idioma:"
 }

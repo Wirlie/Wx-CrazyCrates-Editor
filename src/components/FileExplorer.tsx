@@ -129,7 +129,7 @@ function FileExplorer(props: Props) {
         ipcRenderer.send('open-folder-dialog')
     }
 
-    let {t} = useTranslation()
+    let {t, i18n} = useTranslation()
 
     if(rootPath === undefined) {
         return (
@@ -212,12 +212,19 @@ function FileExplorer(props: Props) {
     return (
         <div className="file-explorer h-100 m-0 p-0 border border-dark">
             <Modal open={openSettings} title={t("settings_modal_title")} defaultCallback={() => setOpenSettings(false)}>
-                <div className="form-check">
-                    <input checked={settings.showIncompatibleFiles} className="form-check-input" type="checkbox" value="" id="viewIncompatibleFiles" onChange={(e) => setSettings({...settings, showIncompatibleFiles: e.target.checked})} />
-                    <label className="form-check-label" htmlFor="viewIncompatibleFiles">
-                        {t("view_incompatible_files")}
-                    </label>
-                </div>
+                <>
+                    <div className="form-check mb-3">
+                        <input checked={settings.showIncompatibleFiles} className="form-check-input" type="checkbox" value="" id="viewIncompatibleFiles" onChange={(e) => setSettings({...settings, showIncompatibleFiles: e.target.checked})} />
+                        <label className="form-check-label" htmlFor="viewIncompatibleFiles">
+                            {t("view_incompatible_files")}
+                        </label>
+                    </div>
+                    <b>{t("language_title")}</b>
+                    <select className="form-control" value={i18n.language} onChange={(e) => i18n.changeLanguage(e.target.value)}>
+                        <option value="enUS">English</option>
+                        <option value="esMX">Español</option>
+                    </select>
+                </>
             </Modal>
             <Modal title="Aviso" open={announceMessage.length > 0} defaultCallback={() => setAnnounceMessage("")}>
                 {announceMessage}

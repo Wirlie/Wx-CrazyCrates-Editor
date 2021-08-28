@@ -227,5 +227,6 @@
     "prize_item_editor_item_name_title": "Item Name",
     "prize_item_editor_item_name_input_placeholder": "Type a name... (optional)",
     "prize_item_editor_potion_title": "Potion Effect",
-    "prize_item_editor_unbreakeable_title": "Unbreakable"
+    "prize_item_editor_unbreakeable_title": "Unbreakable",
+    "language_title": "Language:"
 }
