@@ -1,6 +1,9 @@
 import React from "react"
 
-export const formatColors = (data: JSX.Element | string) : JSX.Element => {
+export const formatColors = (data: JSX.Element | string, debug: boolean = false) : JSX.Element => {
+
+    console.log("DATA TO PARSE!!! => ")
+    console.log(data)
 
     if(typeof data === 'string') {
         return <>{parseStringElement((data as unknown) as string, false)}</>
@@ -32,7 +35,10 @@ export const formatColors = (data: JSX.Element | string) : JSX.Element => {
         }
     }
 
-    //console.log(reconstructedChildrens)
+    if(debug) {
+        console.log("RECONSTRUCTED CHILDRENS:")
+        console.log(reconstructedChildrens)
+    }
 
     return React.cloneElement(
         data,

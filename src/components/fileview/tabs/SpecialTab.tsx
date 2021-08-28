@@ -5,6 +5,7 @@ import Modal from '../../modal/Modal';
 import ItemTooltip from '../../ItemTooltip';
 import ItemTooltipFormat from '../../ItemTooltipFormat';
 import { parsePlaceholders } from '../../FileView';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     crateData: CCrate | undefined,
@@ -20,6 +21,8 @@ function SpecialTab(props: Props) {
         displayTab,
         onDataUpdate
     } = props
+
+    let {t} = useTranslation()
 
     let [openWarning, setOpenWarning] = React.useState<boolean>(false)
     let [unsavedTextareaValue, setUnsavedTextareaValue] = React.useState<string[]>([])
@@ -94,49 +97,38 @@ function SpecialTab(props: Props) {
     return (
         <div className="row m-0 p-0 mr-3 ml-2 pt-3 pb-3 pl-3 pr-3 border border-dark mb-5 border-top-0 bg-secondary" style={{display: (displayTab ? "block" : "none")}}>
             <Modal
-                title="Precaución"
+                title={t("modal_warning_title")}
                 open={openWarning}
                 defaultCallback={() => setOpenWarning(false)}
             >
-                <p>
-                    Habilitar la función de descripción global para todos los premios de esta caja hará que se hagan algunos cambios al archivo .yml de la caja 
-                    agregando información extra que no está presente en el esquema original del archivo. 
-                </p>
-                <p>
-                    Esto no afecta negativamente al servidor, simplemente
-                    es una advertencia para notificar la adición de información extra al archivo .yml que solo el editor puede procesar, pero que
-                    no está presente en el plugin original.
-                </p>
+                <p>{t("modal_extradata_warning_1")}</p>
+                <p>{t("modal_extradata_warning_2")}</p>
             </Modal>
             <div className="col-12 bg-dark p-4">
                 <div className="d-flex align-items-center">
                     <Switch checked={crateData?.CCEditorConfig?.UseGlobalLore ?? false} onChange={handleGlobalLoreChange} className="mr-3" />
                     <div>
                         <div>
-                            Usar una descripción global para todos los premios.
+                            {t("crate_editor_special_global_lore_title")}
                         </div>
                         <div className="text-sm mt-2">
-                            La descripción global permite definir una descripción que tendrán todos los premios de esta caja <b>Antes</b> de la descripción 
-                            específica. Esto es útil si quieres definir una descripción que compartan todos los premios, recuerda que puedes usar algunos
-                            placeholders como: &#x7B;Chance&#x7D; &#x7B;DisplayName&#x7D; &#x7B;DisplayAmount&#x7D; &#x7B;CommandCount&#x7D;, los cuales
-                            se sustituirán dependiendo del premio.
+                            {t("crate_editor_special_global_lore_description")}
                         </div>
                     </div>
                 </div>
                 <div className={"row m-0 p-0" + (!(crateData?.CCEditorConfig?.UseGlobalLore ?? false) ? " d-none" : "")}>
                     <div className="col-12"><hr/></div>
                     <div className="col-6">
-                        <textarea rows={6} className="form-control" placeholder="Ingresa una descripción..." onChange={(e) => handleGlobalLoreValueChange(e.target.value)} value={globalLore} />
+                        <textarea rows={6} className="form-control" placeholder={t("crate_editor_special_global_lore_input_placeholder")} onChange={(e) => handleGlobalLoreValueChange(e.target.value)} value={globalLore} />
                     </div>
                     <div className="col-6">
                         <ItemTooltip>
-                            <ItemTooltipFormat title={"&bPrevisualización"}>
+                            <ItemTooltipFormat title={"&b" + t("crate_editor_special_global_lore_preview")}>
                                 {
                                     globalLore.length === 0
                                     ?
                                     <>
-                                        &eIngresa una descripción para su<br/>
-                                        &eprevisualización...
+                                        {t("crate_editor_special_global_lore_no_data")}
                                     </>
                                     : unsavedTextareaValue.map((line) => {
                                         return (

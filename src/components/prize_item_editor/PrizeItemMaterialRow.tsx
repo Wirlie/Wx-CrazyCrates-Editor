@@ -1,6 +1,7 @@
 import { faAirFreshener, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { GetMaterialName } from '../../resources/app/Language'
 import { GetItemByName, TranslatedMinecraftItem } from '../../util/MinecraftItem'
 import ItemSelect from '../ItemSelect'
@@ -31,10 +32,12 @@ function PrizeItemNameRow(props: Props) {
         }
     }
 
+    let {t} = useTranslation()
+
     if(!editing) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faAirFreshener} /> Material</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faAirFreshener} /> {t("prize_item_editor_material_title")}</b></td>
                 <td className="w-100">
                     <span className={"icon-minecraft mr-2 " + material.css} /> <b>{translatedItemName}</b>
                 </td>
@@ -44,7 +47,7 @@ function PrizeItemNameRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faAirFreshener} /> Material</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faAirFreshener} /> {t("prize_item_editor_material_title")}</b></td>
                 <td className="w-100">
                     <ItemSelect
                         values={[minecraftMaterial]}

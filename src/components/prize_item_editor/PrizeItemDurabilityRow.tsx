@@ -1,6 +1,7 @@
 import { faHashtag, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { buildOption } from '../../resources/app/EditorUtil'
 
 interface Props {
@@ -28,10 +29,12 @@ function PrizeItemDurabilityRow(props: Props) {
         props.onChange(unsavedValue)
     }
 
+    let {t} = useTranslation()
+
     if(!editing) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faHashtag} /> Durabilidad del Ítem</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faHashtag} /> {t("prize_item_editor_durability")}</b></td>
                 <td className="w-100">{buildOption(unsavedValue === undefined ? undefined : unsavedValue + "")}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEditing(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -39,7 +42,7 @@ function PrizeItemDurabilityRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faHashtag} /> Durabilidad del Ítem</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faHashtag} /> {t("prize_item_editor_durability")}</b></td>
                 <td className="w-100">
                     <input type="number" min={0} value={unsavedValue ?? 0} className="form-control" onChange={(e) => handleChange(parseInt(e.target.value))} />
                 </td>

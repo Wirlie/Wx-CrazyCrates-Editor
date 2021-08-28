@@ -1,9 +1,9 @@
 import { faImage, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import Select from 'react-dropdown-select'
+import { useTranslation } from 'react-i18next'
 import { buildOptionItem } from '../../../resources/app/EditorUtil'
-import { GetItemByName, TranslatedItems, TranslatedMinecraftItem } from '../../../util/MinecraftItem'
+import { GetItemByName, TranslatedMinecraftItem } from '../../../util/MinecraftItem'
 import ItemSelect from '../../ItemSelect'
 
 interface Props {
@@ -12,6 +12,8 @@ interface Props {
 }
 
 function CrateKeyMaterialRow(props: Props) {
+    let {t} = useTranslation()
+
     const {
         value,
         onValueChange
@@ -36,7 +38,7 @@ function CrateKeyMaterialRow(props: Props) {
     if(!enableEdit) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>Material:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>{t("crate_editor_key_material_title")}</b></td>
                 <td className="w-100">{guiItem}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEnableEdit(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -44,7 +46,7 @@ function CrateKeyMaterialRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>Material:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faImage} /> <b>{t("crate_editor_key_material_title")}</b></td>
                 <td className="w-100">
                     <div className="d-flex flex-workarount">
                         <span className={"icon-minecraft mr-3 " + unsavedValue.css} />

@@ -16,6 +16,7 @@ import MonacoEditor from 'react-monaco-editor';
 import GeneralTab from './fileview/tabs/GeneralTab'
 import SpecialTab from './fileview/tabs/SpecialTab'
 import { GetMaterialName } from '../resources/app/Language'
+import { useTranslation } from 'react-i18next'
 
 export let parsePlaceholders = (lore: string[], data: PrizeData) : string[] => {
     let newArray = []
@@ -48,6 +49,8 @@ function FileView(props: Props) {
     let [selectedChestInventorySlot, setSelectedChestInventorySlot] = React.useState<SlotData|undefined>(undefined)
     let [recalculatePrizesArray, setRecalculatePrizesArray] = React.useState<{ [key: string]: PrizeData } | undefined>(undefined)
 
+    let {t} = useTranslation()
+
     const {
         active,
         file
@@ -58,14 +61,14 @@ function FileView(props: Props) {
 
         if(!file.name.endsWith(".yml")) {
             setParsingData(false)
-            setErrorMessage("El editor solo admite archivos con extensión .yml (YAML)")
+            setErrorMessage(t("unsuported_file_extension"))
             return
         }
 
         fs.readFile(file.fullPath, (error, data) => {
             if(error != null) {
                 setParsingData(false)
-                setErrorMessage("Ocurrió un problema crítico que impidió que este archivo se cargara.")
+                setErrorMessage(t("internal_error_reading_file"))
                 return
             }
 
@@ -78,7 +81,7 @@ function FileView(props: Props) {
                 let parsed = YAML.parse(data.toString('utf8'))
                 
                 if(parsed["Crate"] === undefined) {
-                    setErrorMessage("El archivo no es un archivo de Crazy Crates")
+                    setErrorMessage(t("file_is_not_a_cc_file"))
                     setActiveTab(4) //como se va a el archivo manualmente, si el usuario lo corrige, la pestaña activa será la pestaña de edición manual (numero 3)
                     return
                 }
@@ -123,13 +126,13 @@ function FileView(props: Props) {
                     let error = ex as YAMLSemanticError
                     error.makePretty()
 
-                    setErrorMessage("El archivo tiene un problema, revisa que la estructura del archivo YAML es correcta.")
+                    setErrorMessage(t("file_parse_error"))
                 } else {
-                    setErrorMessage("Ocurrió un error no esperado al procesar el archivo")
+                    setErrorMessage(t("unexpected_error_while_parsing"))
                 }
             }
         })
-    }, [file.fullPath, file.name])
+    }, [file.fullPath, file.name, t])
 
     let updateGlobalLores = React.useCallback(() => {
         let newGlobalLore = data?.CCEditorConfig?.GlobalLore ?? []
@@ -175,13 +178,13 @@ function FileView(props: Props) {
             }
         } catch(ex: any) {
             console.log(ex)
-            setErrorMessage("Error la guardar el archivo")
+            setErrorMessage(t("save_file_error"))
         }
 
         setRawData(newRawData)
         mainEditorRef.current?.setValue(newRawData)
         setMonoData("")
-    }, [data, saveFromMonoData, doParseFile, file.fullPath, updateGlobalLores])
+    }, [data, saveFromMonoData, doParseFile, file.fullPath, updateGlobalLores, t])
 
     let doSaveRaw = (data: string) => {
         let destination = file.fullPath
@@ -196,7 +199,7 @@ function FileView(props: Props) {
             }
         } catch(ex: any) {
             console.log(ex)
-            setErrorMessage("Error la guardar el archivo")
+            setErrorMessage(t("save_file_error"))
         }
     }
 
@@ -227,19 +230,9 @@ function FileView(props: Props) {
             let newPrizeKey = "item" + rawIndex
             let nameKey = (recalculatePrizesArray[prizeKey].DisplayItem ?? "stone").toLowerCase()
             let lore = [...recalculatePrizesArray[prizeKey].Lore ?? []]
-            let displayName = recalculatePrizesArray[prizeKey].DisplayName
+            let displayItemDefined = recalculatePrizesArray[prizeKey].DisplayItem
+            let displayNameDefined = recalculatePrizesArray[prizeKey].DisplayName
             newPrizesArray[newPrizeKey] = recalculatePrizesArray[prizeKey]
-
-            if(displayName === undefined || displayName.length === 0) {
-                let materialName = recalculatePrizesArray[prizeKey].DisplayItem ?? "stone"
-                let material = GetItemByName(materialName as any)
-
-                if(material === undefined) {
-                    displayName = "Material Desconocido"
-                } else {
-                    displayName = (GetMaterialName(material.name) ?? material.label)
-                }
-            }
 
             if(newPrizeKey !== prizeKey) {
                 doSave = true
@@ -247,22 +240,39 @@ function FileView(props: Props) {
     
             if(GetItemByName(nameKey as any) === undefined) {
                 lore.push("")
-                lore.push("&cErrores encontrados:")
-                lore.push("&e• &eMaterial desconocido:")
+                lore.push(t("unknown_material_lore_0"))
+                lore.push(t("unknown_material_lore_1"))
                 lore.push("  &f" + nameKey)
             }
     
             slotData.current.push({
                 rawIndex: rawIndex,
-                lore: <ItemTooltipFormat title={displayName}>
-                    {lore.map((line, index) => {
-                        return (
-                            <div key={index}>
-                                {line}<br/>
-                            </div>
-                        )
-                    })}
-                </ItemTooltipFormat>,
+                makeLore: () => {
+                    let displayName = displayNameDefined
+
+                    if(displayName === undefined || displayName.length === 0) {
+                        let materialName = displayItemDefined ?? "stone"
+                        let material = GetItemByName(materialName as any)
+        
+                        if(material === undefined) {
+                            displayName = t("unknown_material") ?? "Unknown Material"
+                        } else {
+                            displayName = (GetMaterialName(material.name) ?? material.label)
+                        }
+                    }
+
+                    return (
+                        <ItemTooltipFormat title={displayName}>
+                            {lore.map((line, index) => {
+                                return (
+                                    <div key={index}>
+                                        {line}<br/>
+                                    </div>
+                                )
+                            })}
+                        </ItemTooltipFormat>
+                    )
+                },
                 item: GetItemByName(nameKey as any) ?? GetItemByName("air"),
                 extra: newPrizeKey,
                 amount: recalculatePrizesArray[prizeKey].DisplayAmount ?? 1
@@ -277,7 +287,7 @@ function FileView(props: Props) {
             data!!.Prizes = newPrizesArray
             doSaveDataWithoutRecalculation()
         }
-    }, [data, doSaveDataWithoutRecalculation, recalculatePrizesArray])
+    }, [data, doSaveDataWithoutRecalculation, recalculatePrizesArray, t])
     
     React.useEffect(() => {
         recalculateSlotData()
@@ -349,34 +359,34 @@ function FileView(props: Props) {
         <div className={"file-view h-100 " + (!active ? "d-none" : "")}>
             <Modal 
                 open={warnRemoveAllPrizeKey} 
-                title="¡Vas a borrar el contenido de toda la caja!"
+                title={t("delete_all_rewards_modal_title")}
                 buttonRender={
                     <>
-                        <span className="btn btn-secondary mr-1" onClick={() => setWarnRemoveAllPrizeKey(false)}><FontAwesomeIcon icon={faArrowLeft} /> Cancelar</span>
-                        <span className="btn btn-danger" onClick={() => handleRemoveAllPrizesClick()}><FontAwesomeIcon icon={faTrash} /> Borrar</span>
+                        <span className="btn btn-secondary mr-1" onClick={() => setWarnRemoveAllPrizeKey(false)}><FontAwesomeIcon icon={faArrowLeft} /> {t("cancel_button")}</span>
+                        <span className="btn btn-danger" onClick={() => handleRemoveAllPrizesClick()}><FontAwesomeIcon icon={faTrash} /> {t("delete_button")}</span>
                     </>
                 }
             >
-                Remover este premio será permanente y no podrá revertirse a menos que tengas una copia previa del archivo.
+                {t("delete_reward_cannot_be_undone")}
             </Modal>
             <Modal 
                 open={removePrizeKey !== undefined && removePrizeKey !== "cceditor:notification:success"} 
-                title="¿Seguro(a) de remover este Premio?"
+                title={t("are_sure_to_remove_reward")}
                 buttonRender={
                     <>
-                        <span className="btn btn-secondary mr-1" onClick={() => setRemovePrizeKey(undefined)}><FontAwesomeIcon icon={faArrowLeft} /> Cancelar</span>
-                        <span className="btn btn-danger" onClick={() => handleRemovePrizeConfirmationClick()}><FontAwesomeIcon icon={faTrash} /> Borrar</span>
+                        <span className="btn btn-secondary mr-1" onClick={() => setRemovePrizeKey(undefined)}><FontAwesomeIcon icon={faArrowLeft} /> {t("cancel_button")}</span>
+                        <span className="btn btn-danger" onClick={() => handleRemovePrizeConfirmationClick()}><FontAwesomeIcon icon={faTrash} /> {t("delete_button")}</span>
                     </>
                 }
             >
-                Remover este premio será permanente y no podrá revertirse a menos que tengas una copia previa del archivo.
+                {t("delete_reward_cannot_be_undone")}
             </Modal>
             <Modal
                 open={removePrizeKey === "cceditor:notification:success"}
-                title="Recompensa Eliminada"
+                title={t("reward_deleted")}
                 defaultCallback={() => setRemovePrizeKey(undefined)}
             >
-                La recompensa se ha eliminado correctamente.
+                {t("reward_deleted_succesfully")}
             </Modal>
             {
                 errorMessage.length > 0
@@ -390,8 +400,8 @@ function FileView(props: Props) {
                 monoData.length > 0
                 ? 
                 <div className="bg-info p-2 d-flex justify-content-between align-items-center">
-                    Editaste el archivo manualmente, es necesario re-aplicar los cambios.
-                    <span className="btn btn-light" onClick={() => doSaveRaw(monoData)}>Guardar y Actualizar</span>
+                    {t("content_edited_manual")}
+                    <span className="btn btn-light" onClick={() => doSaveRaw(monoData)}>{t("save_and_refresh_button")}</span>
                 </div>
                 : undefined
             }
@@ -421,16 +431,16 @@ function FileView(props: Props) {
                         }
                         <ul className="nav nav-tabs mt-3 mr-3 ml-2">
                             <li className="nav-item pointer">
-                                <span className={"nav-link border-bottom-0 " + (activeTab === 1 ? "active bg-secondary" : "")} onClick={() => setActiveTab(1)}><FontAwesomeIcon icon={faCog} /> General</span>
+                                <span className={"nav-link border-bottom-0 " + (activeTab === 1 ? "active bg-secondary" : "")} onClick={() => setActiveTab(1)}><FontAwesomeIcon icon={faCog} /> {t("general_tab")}</span>
                             </li>
                             <li className="nav-item pointer">
-                                <span className={"nav-link border-bottom-0 " + (activeTab === 2 ? "active bg-secondary" : "")} onClick={() => setActiveTab(2)}><FontAwesomeIcon icon={faCog} /> Contenido</span>
+                                <span className={"nav-link border-bottom-0 " + (activeTab === 2 ? "active bg-secondary" : "")} onClick={() => setActiveTab(2)}><FontAwesomeIcon icon={faCog} /> {t("content_tab")}</span>
                             </li>
                             <li className="nav-item pointer">
-                                <span className={"nav-link border-bottom-0 " + (activeTab === 3 ? "active bg-secondary" : "")} onClick={() => setActiveTab(3)}><FontAwesomeIcon icon={faAtom} /> Especial</span>
+                                <span className={"nav-link border-bottom-0 " + (activeTab === 3 ? "active bg-secondary" : "")} onClick={() => setActiveTab(3)}><FontAwesomeIcon icon={faAtom} /> {t("special_tab")}</span>
                             </li>
                             <li className="nav-item pointer">
-                                <span className={"nav-link border-bottom-0 " + (activeTab === 4 ? "active bg-secondary" : "")} onClick={() => setActiveTab(4)}><FontAwesomeIcon icon={faEdit} /> Manualmente</span>
+                                <span className={"nav-link border-bottom-0 " + (activeTab === 4 ? "active bg-secondary" : "")} onClick={() => setActiveTab(4)}><FontAwesomeIcon icon={faEdit} /> {t("manual_edit_tab")}</span>
                             </li>
                         </ul>
                         <GeneralTab
@@ -472,7 +482,7 @@ function FileView(props: Props) {
                     ?
                     <ul className="nav nav-tabs mt-3 mr-3 ml-2">
                         <li className="nav-item pointer">
-                            <span className={"nav-link border-bottom-0 active bg-secondary"}><FontAwesomeIcon icon={faEdit} /> Manualmente</span>
+                            <span className={"nav-link border-bottom-0 active bg-secondary"}><FontAwesomeIcon icon={faEdit} /> {t("manual_edit_tab")}</span>
                         </li>
                     </ul>
                 : undefined )

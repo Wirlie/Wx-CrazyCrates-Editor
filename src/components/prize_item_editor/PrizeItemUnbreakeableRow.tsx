@@ -1,6 +1,7 @@
 import { faCog, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { buildOptionToggle } from '../../resources/app/EditorUtil'
 
 interface Props {
@@ -28,10 +29,12 @@ function PrizeItemUnbreakeableRow(props: Props) {
         props.onChange(unsavedValue)
     }
 
+    let {t} = useTranslation()
+
     if(!editing) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCog} /> Irrompible</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCog} /> {t("prize_item_editor_unbreakeable_title")}</b></td>
                 <td className="w-100">{buildOptionToggle(unsavedValue)}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEditing(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -39,11 +42,11 @@ function PrizeItemUnbreakeableRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCog} /> Irrompible</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCog} /> {t("prize_item_editor_unbreakeable_title")}</b></td>
                 <td className="w-100">
                     <select className="form-control" value={unsavedValue === true ? "true" : "false"} onChange={(e) => handleChange(e.target.value)}>
-                        <option value="true">Si</option>
-                        <option value="false">No</option>
+                        <option value="true">{t("select_op_yes")}</option>
+                        <option value="false">{t("select_op_no")}</option>
                     </select>
                 </td>
                 <td><span className="btn btn-success no-break btn-sm" onClick={() => {doSave(); setEditing(false)}}><FontAwesomeIcon icon={faSave} /></span></td>

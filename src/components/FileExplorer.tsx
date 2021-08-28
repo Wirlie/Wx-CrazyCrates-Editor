@@ -9,6 +9,7 @@ import Modal from './modal/Modal'
 import SingleTextInputModal from './modal/SingleTextInputModal'
 import CCrate from '../resources/app/CCrate'
 import Yaml from 'yaml'
+import { Trans, useTranslation } from 'react-i18next'
 
 interface Props {
     rootPath: string|undefined,
@@ -128,14 +129,18 @@ function FileExplorer(props: Props) {
         ipcRenderer.send('open-folder-dialog')
     }
 
+    let {t, i18n} = useTranslation()
+
     if(rootPath === undefined) {
         return (
             <div className="file-explorer h-100 m-0 p-0 border border-dark">
                 <div className="title bg-secondary d-flex justify-content-between">
-                    <span className="text">Archivos</span>
+                    <span className="text">{t("files")}</span>
                 </div>
                 <div className="loading d-flex justify-content-between align-items-center">
-                    Abre una carpeta para comenzar a editar <span className="btn btn-primary btn-sm ml-3" style={{minWidth: "80px"}} onClick={() => handleOpenFolderButton()}><FontAwesomeIcon icon={faFolderOpen} /> Abrir</span>
+                    <Trans i18nKey="i18n_open_folder_to_edit">
+                        Open a folder to start editing <span className="btn btn-primary btn-sm ml-3" style={{minWidth: "80px"}} onClick={() => handleOpenFolderButton()}><FontAwesomeIcon icon={faFolderOpen} /> Open</span>
+                    </Trans>
                 </div>
             </div>
         )
@@ -154,30 +159,30 @@ function FileExplorer(props: Props) {
             console.log("Make new file at: " + tryPath)
 
             if(fs.existsSync(tryPath)) {
-                setAnnounceMessage("Ya existe un archivo con este nombre, no se pudo crear el archivo.")
+                setAnnounceMessage(t("file_already_exists_cannot_crate"))
                 return
             }
 
             let defaultCrate = {
                 CrateType: "Roulette",
-                CrateName: "&bNueva Caja",
+                CrateName: t("default_crate_name"),
                 StartingKeys: 0,
                 InGUI: false,
                 Slot: 0,
                 OpeningBroadCast: false,
-                BroadCast: "&f&l%player% &e&lestá abriendo una caja",
+                BroadCast: t("default_crate_broadcast"),
                 Item: "stone",
-                Name: "&bNueva Caja",
-                Lore: ["&fUna nueva caja con contenidos", "&fvariados para reclamar"],
+                Name: t("default_crate_name"),
+                Lore: [t("default_crate_lore_0"), t("default_crate_lore_1")],
                 PhysicalKey: {
                     Glowing: true,
-                    Name: "&f&lLlave de &b&lNueva Caja",
+                    Name: t("default_crate_key_name"),
                     Item: "TRIPWIRE_HOOK",
-                    Lore: ["&fUna llave que puede ser canjeada", "&fpor artículos interesantes."]
+                    Lore: [t("default_crate_key_lore_0"), t("default_crate_key_lore_1")]
                 },
                 Hologram: {
                     Height: 1,
-                    Message: ["&bNueva Caja"],
+                    Message: [t("default_crate_name")],
                     Toggle: true
                 },
                 Prizes: {}
@@ -186,7 +191,7 @@ function FileExplorer(props: Props) {
             let parsedData = Yaml.stringify({"Crate": defaultCrate})
             fs.writeFileSync(tryPath, parsedData)
 
-            setAnnounceMessage("El archivo fue creado correctamente.")
+            setAnnounceMessage(t("file_created_successfully"))
 
             let fileInfo = {
                 directory: false,
@@ -206,38 +211,45 @@ function FileExplorer(props: Props) {
 
     return (
         <div className="file-explorer h-100 m-0 p-0 border border-dark">
-            <Modal open={openSettings} title="Ajustes del Explorador de Archivos" defaultCallback={() => setOpenSettings(false)}>
-                <div className="form-check">
-                    <input checked={settings.showIncompatibleFiles} className="form-check-input" type="checkbox" value="" id="viewIncompatibleFiles" onChange={(e) => setSettings({...settings, showIncompatibleFiles: e.target.checked})} />
-                    <label className="form-check-label" htmlFor="viewIncompatibleFiles">
-                        Ver archivos no compatibles
-                    </label>
-                </div>
+            <Modal open={openSettings} title={t("settings_modal_title")} defaultCallback={() => setOpenSettings(false)}>
+                <>
+                    <div className="form-check mb-3">
+                        <input checked={settings.showIncompatibleFiles} className="form-check-input" type="checkbox" value="" id="viewIncompatibleFiles" onChange={(e) => setSettings({...settings, showIncompatibleFiles: e.target.checked})} />
+                        <label className="form-check-label" htmlFor="viewIncompatibleFiles">
+                            {t("view_incompatible_files")}
+                        </label>
+                    </div>
+                    <b>{t("language_title")}</b>
+                    <select className="form-control" value={i18n.language} onChange={(e) => i18n.changeLanguage(e.target.value)}>
+                        <option value="enUS">English</option>
+                        <option value="esMX">Español</option>
+                    </select>
+                </>
             </Modal>
             <Modal title="Aviso" open={announceMessage.length > 0} defaultCallback={() => setAnnounceMessage("")}>
                 {announceMessage}
             </Modal>
             <SingleTextInputModal
-                title="Crear nuevo Archivo"
-                placeholder="Ingresa un nombre de archivo"
+                title={t("create_file_modal_title")}
+                placeholder={t("input_file_name_placeholder")}
                 open={openNewFileDialog}
                 onModalClose={(val) => handleNewFileSubmit(val)}
             >
-                Ingresa el nombre del archivo a crear para la nueva caja.
+                {t("enter_file_name_of_crate")}
             </SingleTextInputModal>
             <div className="title bg-secondary d-flex justify-content-between">
-                <span className="text">Archivos</span>
+                <span className="text">{t("files")}</span>
                 <div className="h-100 d-flex align-items-center">
-                    <span className="simple-hover-button" title="Ajustes" onClick={() => setOpenSettings(true)}>
+                    <span className="simple-hover-button" title={t("settings_button_title")} onClick={() => setOpenSettings(true)}>
                         <FontAwesomeIcon icon={faCog} />
                     </span>
-                    <span className="simple-hover-button" title="Nueva Caja..." onClick={() => setOpenNewFileDialog(true)}>
+                    <span className="simple-hover-button" title={t("new_crate_button_title")} onClick={() => setOpenNewFileDialog(true)}>
                         <FontAwesomeIcon icon={faPlus} />
                     </span>
-                    <span className="simple-hover-button" title="Abrir Carpeta" onClick={() => handleOpenFolderButton()}>
+                    <span className="simple-hover-button" title={t("open_folder_button_title")} onClick={() => handleOpenFolderButton()}>
                         <FontAwesomeIcon icon={faFolderOpen} />
                     </span>
-                    <span className="simple-hover-button" title="Actualizar" onClick={() => handleUpdateListFilesButton()}>
+                    <span className="simple-hover-button" title={t("refresh_button_title")} onClick={() => handleUpdateListFilesButton()}>
                         <FontAwesomeIcon icon={faSync} />
                     </span>
                 </div>
@@ -245,7 +257,7 @@ function FileExplorer(props: Props) {
             {doingScan
             ?
                 <div className="loading">
-                    Listando archivos...
+                    {t("listing_files")}
                     <div className="progress mt-2 mb-2">
                         <div className="bg-warning progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar"></div>
                     </div>
@@ -260,14 +272,14 @@ function FileExplorer(props: Props) {
                 {scanError
                 ?
                     <div className="loading bg-danger">
-                        Error al listar archivos...
+                        {t("listing_files_error")}
                     </div>
                 : undefined}
                 {
                     filesToRender.length === 0 && !doingScan
                     ?
                     <div className="file-entry">
-                        <i>No hay archivos compatibles con el Editor en esta carpeta... para visualizar todos los archivos cambia los ajustes del explorador de archivos.</i>
+                        <i>{t("no_compatible_files_to_list")}</i>
                     </div>
                     :
                     filesToRender.map((file) => {

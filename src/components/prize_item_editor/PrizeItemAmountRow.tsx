@@ -1,6 +1,7 @@
 import { faCalculator, faPen, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     amount: number,
@@ -19,10 +20,12 @@ function PrizeItemAmountRow(props: Props) {
         props.onChange(unsavedValue)
     }
 
+    let {t} = useTranslation()
+
     if(!editing) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCalculator} /> Cantidad</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCalculator} /> {t("prize_item_editor_amount")}</b></td>
                 <td className="w-100">{unsavedValue}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEditing(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -30,7 +33,7 @@ function PrizeItemAmountRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCalculator} /> Cantidad</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><b><FontAwesomeIcon icon={faCalculator} /> {t("prize_item_editor_amount")}</b></td>
                 <td className="w-100">
                     <input type="number" value={unsavedValue} min={1} max={64} className="form-control" onChange={(e) => setUnsavedValue(parseInt(e.target.value))} />
                 </td>

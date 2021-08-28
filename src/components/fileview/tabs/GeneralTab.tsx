@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import CCrate from '../../../resources/app/CCrate';
 import { GetItemByName } from '../../../util/MinecraftItem';
 import CrateBroadcastMessageRow from '../rows/CrateBroadcastMessageRow';
@@ -31,10 +32,12 @@ function GeneralTab(props: Props) {
         onDataUpdate
     } = props
 
+    let {t} = useTranslation()
+
     return (
         <div className="row m-0 p-0 mr-3 ml-2 pt-3 pb-3 pl-2 pr-2 border border-dark mb-5 border-top-0 bg-secondary" style={{display: (displayTab ? "block" : "none")}}>
             <div className="col-12">
-                <h5>&raquo; DATOS GENERALES</h5>
+                <h5>&raquo; {t("crate_editor_general_section_general_title")}</h5>
                 <table className="table table-dark">
                     <tbody>
                         <CrateNameRow value={crateData?.CrateName} onValueChange={(val) => {crateData!!.CrateName = val; onDataUpdate()}} />
@@ -51,7 +54,7 @@ function GeneralTab(props: Props) {
                 </table>
             </div>
             <div className="col-12 mt-3">
-                <h5>&raquo; DATOS LLAVE (KEY) FÍSICA/VIRTUAL</h5>
+                <h5>&raquo; {t("crate_editor_general_section_key_title")}</h5>
                 <table className="table table-dark">
                     <tbody>
                         <CrateKeyMaterialRow value={GetItemByName((crateData?.PhysicalKey?.Item === undefined || null) ? undefined : (crateData!!.PhysicalKey!!.Item!! as string).toLowerCase() as any)} onValueChange={(val) => {crateData!!.PhysicalKey!!.Item = val.name.toUpperCase(); onDataUpdate()}} />
@@ -62,7 +65,7 @@ function GeneralTab(props: Props) {
                 </table>
             </div>
             <div className="col-12 mt-3">
-                <h5>&raquo; HOLOGRAMA</h5>
+                <h5>&raquo; {t("crate_editor_general_section_hologram_title")}</h5>
                 <table className="table table-dark">
                     <tbody>
                         <CrateHologramToggleRow value={crateData?.Hologram?.Toggle} onValueChange={(val) => {crateData!!.Hologram!!.Toggle = val; onDataUpdate()}} />

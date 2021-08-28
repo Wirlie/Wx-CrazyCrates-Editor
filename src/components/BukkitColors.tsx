@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import { formatColors } from '../util/MinecraftUtil'
 
 interface Props {
+    debug? : boolean,
     children?: React.ReactNode
 }
 
@@ -24,6 +25,7 @@ class BukkitColors extends React.Component<Props, State> {
                 <>
                     {this.props.children}
                 </>
+                , this.props.debug ?? false
             )
         }
     }

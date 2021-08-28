@@ -1,6 +1,7 @@
 import { faPen, faSave, faTag } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { buildOptionTooltip } from '../../../resources/app/EditorUtil'
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 function CrateKeyNameRow(props: Props) {
+    let {t} = useTranslation()
+
     const {
         value,
         onValueChange
@@ -20,8 +23,8 @@ function CrateKeyNameRow(props: Props) {
     let [unsavedValue, setUnsavedValue] = React.useState<string>("")
 
     React.useEffect(() => {
-        setUnsavedValue(value ?? "Caja sin Nombre")
-    }, [value])
+        setUnsavedValue(value ?? t("crate_editor_key_name_default"))
+    }, [value, t])
 
     let handleSave = () => {
         setEnableEdit(false)
@@ -33,7 +36,7 @@ function CrateKeyNameRow(props: Props) {
     if(!enableEdit) {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faTag} /> <b>Nombre:</b></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faTag} /> <b>{t("crate_editor_key_name_title")}</b></td>
                 <td className="w-100">{crateName}</td>
                 <td><span className="btn btn-primary no-break btn-sm" onClick={() => setEnableEdit(true)}><FontAwesomeIcon icon={faPen} /></span></td>
             </tr>
@@ -41,8 +44,8 @@ function CrateKeyNameRow(props: Props) {
     } else {
         return (
             <tr>
-                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faTag} /> <b>Nombre:</b></td>
-                <td className="w-100"><input type="text" value={unsavedValue} className="form-control" onChange={(e) => setUnsavedValue(e.target.value)} placeholder="Ingresa un mensaje a mostrar..." /></td>
+                <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}><FontAwesomeIcon icon={faTag} /> <b>{t("crate_editor_key_name_title")}</b></td>
+                <td className="w-100"><input type="text" value={unsavedValue} className="form-control" onChange={(e) => setUnsavedValue(e.target.value)} placeholder={t("crate_editor_key_name_input_placeholder")} /></td>
                 <td><span className="btn btn-success no-break btn-sm" onClick={() => handleSave()}><FontAwesomeIcon icon={faSave} /></span></td>
             </tr>
         )

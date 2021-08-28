@@ -1,12 +1,12 @@
 import React from 'react'
 import { ipcRenderer } from 'electron'
-import Modal from './modal/Modal'
 import FileExplorer, { FileInfo } from './FileExplorer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
 import OpenFilesTab from './OpenFilesTab'
 import FileView from './FileView'
 import Scrollbars from 'react-custom-scrollbars-2'
+import { useTranslation } from 'react-i18next'
 
 interface Props {}
 
@@ -33,8 +33,6 @@ function Editor(props: Props) {
     }, [])
 
     let [currentPath, setCurrentPath] = React.useState<string>()
-    let [exportErrorMessage, setExportErrorMessage] = React.useState<string|undefined>(undefined)
-    let [exportSuccess, setExportSuccess] = React.useState<boolean>(false)
     let [openFiles, setOpenFiles] = React.useState<FileInfo[]>([])
     let [activeFile, setActiveFile] = React.useState<FileInfo|undefined>(undefined)
 
@@ -79,14 +77,10 @@ function Editor(props: Props) {
         setOpenFiles(newArray)
     }
 
+    let { t } = useTranslation()
+
     return (
         <>  
-            <Modal title="Error al Exportar" open={exportErrorMessage !== undefined} defaultCallback={() => setExportErrorMessage(undefined)}>
-                {exportErrorMessage}
-            </Modal>
-            <Modal title="¡Exportación Exitosa!" open={exportSuccess === true} defaultCallback={() => setExportSuccess(false)}>
-                Se ha exportado correctamente la configuración.
-            </Modal>
             <div className="container-fluid h-100 app-container">
                 <div className="row h-100">
                     <div className="col-xxl-2 col-xl-3 col-md-4 h-100 m-0 p-0">
@@ -116,7 +110,7 @@ function Editor(props: Props) {
                                         <div>
                                             <FontAwesomeIcon icon={faFile} size={"3x"} className="mb-3 mr-4" /><FontAwesomeIcon icon={faPlus} size={"2x"} className="mb-3 mr-4" /><FontAwesomeIcon icon={faPen} size={"3x"} className="mb-3" />
                                         </div>
-                                        Selecciona un archivo para comenzar a editar.
+                                        {t("select_file_to_edit")}
                                     </div>
                                     : 
                                     openFiles.map((file, index) => {

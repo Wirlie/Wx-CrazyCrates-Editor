@@ -1,18 +1,17 @@
-import { faBook, faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, faPlus, faSave, faSearch, faTag, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faBox, faCog, faExclamationCircle, faInfo, faPen, faPlus, faSave, faSearch, faTag, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { constant_enchantments, Enchantment } from '../resources/app/Constants'
 import { GetEnchantmentName, GetMaterialName } from '../resources/app/Language'
 import { PrizeData } from '../resources/app/PrizeData'
 import { PrizeItem, PrizeItemToString, StringToPrizeItem } from '../resources/app/PrizeItem'
-import { GetItemByName, TranslatedMinecraftItem, TranslatedItems } from '../util/MinecraftItem'
+import { GetItemByName, TranslatedMinecraftItem } from '../util/MinecraftItem'
 import { formatColors } from '../util/MinecraftUtil'
 import ItemSelect from './ItemSelect'
 import ItemTooltip from './ItemTooltip'
 import ItemTooltipFormat from './ItemTooltipFormat'
-import Switch from "react-switch"
 import PrizeItemEditor from './PrizeItemEditor'
-import { sortStringArray } from '../resources/app/Util'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     data?: {
@@ -30,6 +29,8 @@ interface EnchantmentAndLevel {
 }
 
 function PrizeEditor(props: Props) {
+
+    let {t} = useTranslation()
 
     let [currentTab, setCurrentTab] = React.useState<number>(1)
     let [hasUnsavedChanged, setHasUnsavedChanges] = React.useState<boolean>(false)
@@ -209,7 +210,7 @@ function PrizeEditor(props: Props) {
     }
 
     let material = GetItemByName(displayItem as any)
-    let materialName = (material === undefined ? "Material Desconocido" : (GetMaterialName(material.name) ?? material.label))
+    let materialName = (material === undefined ? t("unknown_material") : (GetMaterialName(material.name) ?? material.label))
 
     let handleAddPrizeItem = () => {
         setHasUnsavedChanges(true)
@@ -242,7 +243,7 @@ function PrizeEditor(props: Props) {
         let newArray : PrizeItem[] = []
 
         for(let i = 0; i < prizeItems.length; i++) {
-            if(i == index) {
+            if(i === index) {
                 newArray.push(newData)
             } else {
                 newArray.push(prizeItems[i])
@@ -265,43 +266,43 @@ function PrizeEditor(props: Props) {
                     {
                         props.data !== undefined
                         ?
-                            <h5>Editando Premio "{props.data!!.key}"</h5>
-                        :   <h5>Creando nuevo Premio</h5>
+                            <h5>{t("edit_prize_modal_title")} "{props.data!!.key}"</h5>
+                        :   <h5>{t("create_prize_modal_title")}</h5>
                     }
                     <div>
                         <span className={"btn btn-primary mr-2" + (hasUnsavedChanged ? "" : " disabled")} onClick={() => handleSave()}>
-                            <FontAwesomeIcon icon={props.data !== undefined ? faSave : faPlus} /> {props.data !== undefined ? "Guardar" : "Crear"}
+                            <FontAwesomeIcon icon={props.data !== undefined ? faSave : faPlus} /> {props.data !== undefined ? t("save_button") : t("create_button")}
                         </span>
-                        <span className="btn btn-danger" onClick={() => props.cancellCallback()}><FontAwesomeIcon icon={faTimes} /> Cancelar</span>
+                        <span className="btn btn-danger" onClick={() => props.cancellCallback()}><FontAwesomeIcon icon={faTimes} /> {t("cancel_button")}</span>
                     </div>
                 </div>
                 <ul className="nav nav-tabs mt-4">
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(1)} className={"nav-link" + (currentTab === 1 ? " active" : "")} aria-current="page"><span className="icon-minecraft icon-minecraft-item-frame mr-1" /> General</span>
+                        <span onClick={() => setCurrentTab(1)} className={"nav-link" + (currentTab === 1 ? " active" : "")} aria-current="page"><span className="icon-minecraft icon-minecraft-item-frame mr-1" /> {t("general_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(2)} className={"nav-link" + (currentTab === 2 ? " active" : "")}><span className="icon-minecraft icon-minecraft-enchanted-book mr-1" /> Encantamientos</span>
+                        <span onClick={() => setCurrentTab(2)} className={"nav-link" + (currentTab === 2 ? " active" : "")}><span className="icon-minecraft icon-minecraft-enchanted-book mr-1" /> {t("enchantments_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(3)} className={"nav-link" + (currentTab === 3 ? " active" : "")}><span className="icon-minecraft icon-minecraft-command-block mr-1" /> Comandos</span>
+                        <span onClick={() => setCurrentTab(3)} className={"nav-link" + (currentTab === 3 ? " active" : "")}><span className="icon-minecraft icon-minecraft-command-block mr-1" /> {t("commands_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(4)} className={"nav-link" + (currentTab === 4 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chain-command-block mr-1" /> Mensajes</span>
+                        <span onClick={() => setCurrentTab(4)} className={"nav-link" + (currentTab === 4 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chain-command-block mr-1" /> {t("messages_tab")}</span>
                     </li>
                     <li className="nav-item" style={{cursor: "pointer"}}>
-                        <span onClick={() => setCurrentTab(5)} className={"nav-link" + (currentTab === 5 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chest mr-1" /> Objetos</span>
+                        <span onClick={() => setCurrentTab(5)} className={"nav-link" + (currentTab === 5 ? " active" : "")}><span className="icon-minecraft icon-minecraft-chest mr-1" /> {t("items_tab")}</span>
                     </li>
                 </ul>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 1 ? " d-none" : "")}>
                     <div className="mb-4">
-                        <label htmlFor="input-display-name" className="form-label font-weight-bold"><FontAwesomeIcon icon={faTag} /> Nombre a Mostrar:</label>
+                        <label htmlFor="input-display-name" className="form-label font-weight-bold"><FontAwesomeIcon icon={faTag} /> {t("edit_prize_name_to_display")}</label>
                         <input placeholder={materialName} value={displayName} onChange={(e) => handleDisplayName(e.target.value)} type="text" id="input-display-name" className="form-control" aria-describedby="displayNameHelpBlock" />
                         <div id="displayNameHelpBlock" className="form-text">
-                            Ingresa el nombre a mostrar en el título del mensaje flotante que verá el jugador al pasar el cursor sobre este premio.
+                            {t("edit_prize_name_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-material" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBookOpen} /> Material a Mostrar:</label>
+                        <label htmlFor="input-display-material" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBookOpen} /> {t("edit_prize_material_to_display")}</label>
                         <div className="d-flex flex-workarount">
                             <span className={"icon-minecraft mr-3 " + displayMaterial?.css} />
                             <ItemSelect 
@@ -310,26 +311,26 @@ function PrizeEditor(props: Props) {
                             />
                         </div>
                         <div id="displayItemHelpBlock" className="form-text">
-                            Selecciona el material que se mostrará como icono en el Menú de premios de esta caja para este premio.
+                            {t("edit_prize_material_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-display-amount" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBox} /> Cantidad a Mostrar:</label>
+                        <label htmlFor="input-display-amount" className="form-label font-weight-bold"><FontAwesomeIcon icon={faBox} /> {t("edit_prize_amount_to_display")}</label>
                         <input onChange={(e) => handleDisplayAmount(e.target.value)} value={displayAmount} type="number" id="input-display-amount" className="form-control" aria-describedby="displayAmountHelpBlock" min={1} max={64} />
                         <div id="displayAmountHelpBlock" className="form-text">
-                            Ajusta la cantidad del Stack que se mostrará en el Menú de premios de esta caja para este premio.
+                            {t("edit_prize_amount_to_display_description")}
                         </div>
                     </div>
                     <div className="mb-4 row g-0">
                         <div className="col-6">
-                            <label htmlFor="input-display-lore" className="form-label font-weight-bold"><FontAwesomeIcon icon={faPen} /> Descripción del Premio:</label>
-                            <textarea onChange={(e) => handleLore(e.target.value)} id="input-display-lore" className="form-control" aria-describedby="displayLoreHelpBlock" value={displayLore.join("\n")} placeholder="Ingresa una descripción (opcional)..." />
+                            <label htmlFor="input-display-lore" className="form-label font-weight-bold"><FontAwesomeIcon icon={faPen} /> {t("edit_prize_lore")}</label>
+                            <textarea onChange={(e) => handleLore(e.target.value)} id="input-display-lore" className="form-control" aria-describedby="displayLoreHelpBlock" value={displayLore.join("\n")} placeholder={t("edit_prize_lore_placeholder")} />
                             <div id="displayLoreHelpBlock" className="form-text">
-                                Esta descripción se mostrará en el Menú de premios de esta caja para este premio, cada línea equivale a una línea en el mensaje flotante de Minecraft.
+                                {t("edit_prize_lore_description")}
                             </div>
                         </div>
                         <div className="col-5 offset-1">
-                            <div className="font-weight-bold"><FontAwesomeIcon icon={faSearch} /> Previsualización:</div>
+                            <div className="font-weight-bold"><FontAwesomeIcon icon={faSearch} /> {t("edit_prize_lore_preview")}</div>
                             <ItemTooltip>
                                 <ItemTooltipFormat title={displayName.length === 0 ? materialName : displayName}>
                                     { displayLore.length > 1 || (displayLore.length === 1 && displayLore[0].length !== 0)
@@ -348,37 +349,37 @@ function PrizeEditor(props: Props) {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-range" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Rango:</label>
+                        <label htmlFor="input-range" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> {t("edit_prize_range")}</label>
                         <input onChange={(e) => handleRange(e.target.value)} value={maxRange} type="number" id="input-range" className="form-control" aria-describedby="rangeHelpBlock" min={1} />
                         <div id="rangeHelpBlock" className="form-text">
-                            Rango del cálculo del % de chance, se recomienda dejar en 100 a menos que conozcas como funciona este cálculo.
+                            {t("edit_prize_range_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-chance" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Chance:</label>
+                        <label htmlFor="input-chance" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> {t("edit_prize_chance")}</label>
                         <input onChange={(e) => handleChance(e.target.value)} value={chance} type="number" id="input-chance" className="form-control" aria-describedby="chanceHelpBlock" min={1} />
                         <div id="chanceHelpBlock" className="form-text">
-                            Define la chance de este objeto, ten en cuenta que el cálculo se hace en base a la chance total de todos los premios.
+                            {t("edit_prize_chance_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-firework" className="form- font-weight-bold"><FontAwesomeIcon icon={faCog} /> Efecto de Cohete:</label>
+                        <label htmlFor="input-firework" className="form- font-weight-bold"><FontAwesomeIcon icon={faCog} /> {t("edit_prize_firework")}</label>
                         <select defaultValue={firework ? "true" : "false"} className="form-control" id="input-firework" aria-describedby="fireworkHelpBlock" onChange={(e) => handleFireworkSelectChange(e.target.value)}>
-                            <option value="true">SI</option>
-                            <option value="false">NO</option>
+                            <option value="true">{t("select_op_yes")}</option>
+                            <option value="false">{t("select_op_no")}</option>
                         </select>
                         <div id="fireworkHelpBlock" className="form-text">
-                            Habilitar este efecto hará que explote un Cohete en la ubicación de la caja cuando este premio le toque a un jugador.
+                            {t("edit_prize_firework_description")}
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="input-glowing" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> Efecto de Brillo:</label>
+                        <label htmlFor="input-glowing" className="form-label font-weight-bold"><FontAwesomeIcon icon={faCog} /> {t("edit_prize_glow_effect")}</label>
                         <select defaultValue={glowing ? "true" : "false"} className="form-control" id="input-glowing" aria-describedby="glowingHelpBlock" onChange={(e) => handleGlowingSelectChange(e.target.value)}>
-                            <option value="true">SI</option>
-                            <option value="false">NO</option>
+                            <option value="true">{t("select_op_yes")}</option>
+                            <option value="false">{t("select_op_no")}</option>
                         </select>
                         <div id="glowingHelpBlock" className="form-text">
-                            Habilitar este efecto hará que el ítem brille con el efecto de encantamiento (el mismo que obtienes cuando encantas un ítem desde la mesa de encantamientos).
+                            {t("edit_prize_glow_effect_description")}
                         </div>
                     </div>
                 </div>
@@ -386,10 +387,10 @@ function PrizeEditor(props: Props) {
                     {
                         enchantments.length === 0
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> No hay encantamientos configurados, prueba agregando un nuevo encantamiento.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_enchantments_configured")}</div>
                         :
                         <div className="border border-secondary bg-secondary p-3 mb-3">
-                            <FontAwesomeIcon icon={faInfo} /> Estos encantamientos se mostrará en la interfaz de previsualización de contenido de la caja. Estos encantamientos no se aplican al objeto, solo es algo visual.
+                            <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_enchantments_description")}
                         </div>
                     }
                     {
@@ -407,21 +408,21 @@ function PrizeEditor(props: Props) {
                                         })}
                                     </select>
                                     <div className="input-group-append">
-                                        <button className="btn btn-danger" type="button" onClick={() => handleEnchantmentRemove(index)}><FontAwesomeIcon icon={faTrash} /> Borrar</button>
+                                        <button className="btn btn-danger" type="button" onClick={() => handleEnchantmentRemove(index)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</button>
                                     </div>
                                 </div>
                             )
                         })
                     }
                     <div className="text-left mt-3">
-                        <span className="btn btn-success" onClick={() => handleEnchantmentAdd()}><FontAwesomeIcon icon={faPlus} /> Nuevo Encantamiento</span>
+                        <span className="btn btn-success" onClick={() => handleEnchantmentAdd()}><FontAwesomeIcon icon={faPlus} /> {t("button_new_enchantment")}</span>
                     </div>
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 3 ? " d-none" : "")}>
                     {
                         commands.length === 0
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> No hay comandos configurados, prueba agregando un nuevo comando.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_commands_configured")}</div>
                         : undefined
                     }
                     {
@@ -431,30 +432,30 @@ function PrizeEditor(props: Props) {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text" id="basic-addon1">/</span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="Ingresa un comando a ejecutar" aria-label="Username" aria-describedby="basic-addon1" value={command} onChange={(e) => handleCommandEdition(index, e.target.value)} />
+                                    <input type="text" className="form-control" placeholder={t("edit_prize_commands_input_placeholder")} aria-label="Username" aria-describedby="basic-addon1" value={command} onChange={(e) => handleCommandEdition(index, e.target.value)} />
                                     <div className="input-group-append">
-                                        <button className="btn btn-danger" type="button" onClick={() => handleCommandRemove(index)}><FontAwesomeIcon icon={faTrash} /> Borrar</button>
+                                        <button className="btn btn-danger" type="button" onClick={() => handleCommandRemove(index)}><FontAwesomeIcon icon={faTrash} /> {t("button_delete")}</button>
                                     </div>
                                 </div>
                             )
                         })
                     }
                     <div className="text-left mt-3">
-                        <span className="btn btn-success" onClick={() => handleCommandAdd()}><FontAwesomeIcon icon={faPlus} /> Nuevo Comando</span>
+                        <span className="btn btn-success" onClick={() => handleCommandAdd()}><FontAwesomeIcon icon={faPlus} /> {t("button_new_command")}</span>
                     </div>
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 4 ? " d-none" : "")}>
-                    <b>Mensaje a Mostrar:</b><br/>
-                    <textarea rows={4} className="form-control mb-2 mt-1" placeholder="Ingresa un mensaje a mostrar" value={messages.join("\n")} onChange={(e) => handleMessageEdition(e.target.value)} />
+                    <b>{t("edit_prize_messages_to_display")}</b><br/>
+                    <textarea rows={4} className="form-control mb-2 mt-1" placeholder={t("edit_prize_messages_input_placeholder")} value={messages.join("\n")} onChange={(e) => handleMessageEdition(e.target.value)} />
                     <div className="border border-secondary bg-secondary p-3 mb-3">
-                        <FontAwesomeIcon icon={faInfo} /> Cada salto de línea es un mensaje que será mostrado en el chat del juego cuando el jugador reciba la recompensa.
+                        <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_messages_description")}
                     </div>
                     <hr />
-                    <b>Previsualización:</b><br/>
+                    <b>{t("edit_prize_messages_preview")}</b><br/>
                     {
                         messages.length === 0 || (messages.length === 1 && messages[0].length === 0)
                         ?
-                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> Debes configurar un mensaje para que pueda ser previsualizado.</div>
+                            <div className="p-3 bg-warning border border-warning"><FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_messages_should_configure_a_message")}</div>
                         :
                         <div className="minecraft-chat-preview mt-1">
                             
@@ -470,21 +471,18 @@ function PrizeEditor(props: Props) {
                 </div>
                 <div className={"p-4 border border-top-0 border-dark" + (currentTab !== 5 ? " d-none" : "")}>
                     <div className="border border-secondary bg-secondary p-3 mb-3">
-                        <FontAwesomeIcon icon={faInfo} /> Los siguientes objetos serán entregados al jugador si obtiene este premio, puedes
-                        configurar uno o más objetos si lo deseas. Es recomendable que uses esta configuración en lugar de un comando de Essentials
-                        o similar para evitar inconsistencias, aunque si lo deseas, puedes entregar el objeto mediante un comando en lugar de usar
-                        esta configuración.
+                        <FontAwesomeIcon icon={faInfo} /> {t("edit_prize_items_description")}
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
-                        <b>Objetos a dar:</b>
-                        <span className="btn btn-success" onClick={handleAddPrizeItem}><FontAwesomeIcon icon={faPlus} /> Nuevo Objeto</span>
+                        <b>{t("edit_prize_items_to_give")}</b>
+                        <span className="btn btn-success" onClick={handleAddPrizeItem}><FontAwesomeIcon icon={faPlus} /> {t("button_new_item")}</span>
                     </div>
                     <div className="mt-2">
                         {
                             prizeItems.length === 0
                             ?
                                 <div className="bg-warning p-3 border border-warning">
-                                    <FontAwesomeIcon icon={faExclamationCircle} /> No haz configurado ningún objeto hasta el momento, prueba agregando un objeto para poder editarlo.
+                                    <FontAwesomeIcon icon={faExclamationCircle} /> {t("edit_prize_no_items_configured")}
                                 </div>
                             : prizeItems.map((element, index) => {
 
