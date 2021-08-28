@@ -230,19 +230,9 @@ function FileView(props: Props) {
             let newPrizeKey = "item" + rawIndex
             let nameKey = (recalculatePrizesArray[prizeKey].DisplayItem ?? "stone").toLowerCase()
             let lore = [...recalculatePrizesArray[prizeKey].Lore ?? []]
-            let displayName = recalculatePrizesArray[prizeKey].DisplayName
+            let displayItemDefined = recalculatePrizesArray[prizeKey].DisplayItem
+            let displayNameDefined = recalculatePrizesArray[prizeKey].DisplayName
             newPrizesArray[newPrizeKey] = recalculatePrizesArray[prizeKey]
-
-            if(displayName === undefined || displayName.length === 0) {
-                let materialName = recalculatePrizesArray[prizeKey].DisplayItem ?? "stone"
-                let material = GetItemByName(materialName as any)
-
-                if(material === undefined) {
-                    displayName = t("unknown_material") ?? "Unknown Material"
-                } else {
-                    displayName = (GetMaterialName(material.name) ?? material.label)
-                }
-            }
 
             if(newPrizeKey !== prizeKey) {
                 doSave = true
@@ -257,15 +247,32 @@ function FileView(props: Props) {
     
             slotData.current.push({
                 rawIndex: rawIndex,
-                lore: <ItemTooltipFormat title={displayName}>
-                    {lore.map((line, index) => {
-                        return (
-                            <div key={index}>
-                                {line}<br/>
-                            </div>
-                        )
-                    })}
-                </ItemTooltipFormat>,
+                makeLore: () => {
+                    let displayName = displayNameDefined
+
+                    if(displayName === undefined || displayName.length === 0) {
+                        let materialName = displayItemDefined ?? "stone"
+                        let material = GetItemByName(materialName as any)
+        
+                        if(material === undefined) {
+                            displayName = t("unknown_material") ?? "Unknown Material"
+                        } else {
+                            displayName = (GetMaterialName(material.name) ?? material.label)
+                        }
+                    }
+
+                    return (
+                        <ItemTooltipFormat title={displayName}>
+                            {lore.map((line, index) => {
+                                return (
+                                    <div key={index}>
+                                        {line}<br/>
+                                    </div>
+                                )
+                            })}
+                        </ItemTooltipFormat>
+                    )
+                },
                 item: GetItemByName(nameKey as any) ?? GetItemByName("air"),
                 extra: newPrizeKey,
                 amount: recalculatePrizesArray[prizeKey].DisplayAmount ?? 1

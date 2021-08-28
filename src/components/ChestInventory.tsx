@@ -107,7 +107,7 @@ class ChestInventory extends React.Component<Props, State> {
                                                         trigger={['hover']}
                                                         mouseLeaveDelay={0}
                                                         mouseEnterDelay={0.25}
-                                                        overlay={slotData.lore} 
+                                                        overlay={slotData.makeLore()} 
                                                         key={"row-" + rowIndex + "-slot-" + slotIndex}
                                                     >
                                                         <div className={"inventory-slot " + (selectedSlot !== undefined && selectedSlot.rawIndex === rawIndex ? " selected" : "")} onClick={(e) => handleSelectSlot(slotData!!)}>
@@ -229,7 +229,7 @@ export default withTranslation()(ChestInventory)
 
 export interface SlotData {
     rawIndex: number,
-    lore: JSX.Element,
+    makeLore: () => JSX.Element,
     item?: TranslatedMinecraftItem | undefined,
     extra?: any,
     amount: number
