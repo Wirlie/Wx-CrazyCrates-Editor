@@ -37,7 +37,7 @@ i18n
     interpolation: {
       escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
-    debug: true
+    debug: false
   });
 
 function App() {
