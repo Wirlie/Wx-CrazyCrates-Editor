@@ -5,6 +5,7 @@ import React from 'react'
 import { TranslatedMinecraftItem } from '../util/MinecraftItem'
 import ItemTooltipFormat from './ItemTooltipFormat'
 import { withTranslation, TFunction } from "react-i18next";
+import { i18n } from 'i18next'
 
 interface Props  {
     rows: number,
@@ -15,18 +16,36 @@ interface Props  {
     onClearAllRewards: () => void,
     onSelectSlot: (data: SlotData | undefined) => void,
     onAddItem: () => void,
-    t?: TFunction
+    t?: TFunction,
+    i18n?: i18n
 }
 
 interface State {
-
+    lang: string
 }
 
 class ChestInventory extends React.Component<Props, State> {
 
+    state = {
+        lang: "enUS"
+    }
+
     //Only update component when data is changed...
     shouldComponentUpdate(nextProps : Props) {
-        return nextProps.data !== this.props.data || nextProps.selectedSlot !== this.props.selectedSlot
+        console.log("CURRENT LANG: " + this.state.lang + " | NEXT LANG: " + nextProps.i18n!!.language + " | CONDITION: " + (nextProps.i18n!!.language !== this.state.lang))
+        return nextProps.data !== this.props.data || nextProps.selectedSlot !== this.props.selectedSlot || nextProps.i18n!!.language !== this.state.lang
+    }
+
+    componentDidUpdate() {
+        this.setState({
+            lang: this.props.i18n!!.language
+        })
+    }
+
+    componentDidMount() {
+        this.setState({
+            lang: this.props.i18n!!.language
+        })
     }
 
     render() {
