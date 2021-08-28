@@ -5,7 +5,7 @@ Currently the editor only supports MC 1.13+ versions and the latest CrazyCrates 
 
 - **Supported Minecraft Versions:** 1.13+
 - **Supported CrazyCrates Version:** v1.10.1 (may work with older or newer versions than this)
-- **Supported languages:** Spanish (English coming soon...)
+- **Supported languages:** English, Spanish
 
 ## Download
 Get the latest release from:
@@ -25,6 +25,9 @@ I know that electron-builder can be configured to work with Linux and macOS, you
 
 ## Suggestions/Bug reports
 For suggestions or bug reports, feel free to make a new issue. Also Pull Requests are welcome.
+
+## How contribute with a new Language
+Currently English and Spanish are supported, but if you want to contribute with another language then take a look to the en_US.json file inside the locales folder, [click here to go to the Locales folder](https://github.com/Wirlie/Wx-CrazyCrates-Editor/tree/master/src/locales)
 
 ## License
 Please read the LICENSE file for more information about the license of this application.
